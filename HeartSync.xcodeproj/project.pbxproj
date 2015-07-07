@@ -14,6 +14,10 @@
 		88237CD81B4B72C600BD5813 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88237CD71B4B72C600BD5813 /* Images.xcassets */; };
 		88237CDB1B4B72C600BD5813 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88237CD91B4B72C600BD5813 /* LaunchScreen.xib */; };
 		88237CE71B4B72C600BD5813 /* HeartSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CE61B4B72C600BD5813 /* HeartSyncTests.swift */; };
+		88237CF11B4B72DE00BD5813 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88237CF01B4B72DE00BD5813 /* HealthKit.framework */; };
+		88237CF41B4B733500BD5813 /* HealthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CF31B4B733500BD5813 /* HealthHandler.swift */; };
+		88237CF61B4B766100BD5813 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CF51B4B766100BD5813 /* NSDateExtensions.swift */; };
+		88237CF81B4B786700BD5813 /* tree_bark.png in Resources */ = {isa = PBXBuildFile; fileRef = 88237CF71B4B786700BD5813 /* tree_bark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,11 @@
 		88237CE01B4B72C600BD5813 /* HeartSyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeartSyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		88237CE51B4B72C600BD5813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88237CE61B4B72C600BD5813 /* HeartSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartSyncTests.swift; sourceTree = "<group>"; };
+		88237CF01B4B72DE00BD5813 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		88237CF21B4B72DE00BD5813 /* HeartSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HeartSync.entitlements; sourceTree = "<group>"; };
+		88237CF31B4B733500BD5813 /* HealthHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthHandler.swift; sourceTree = "<group>"; };
+		88237CF51B4B766100BD5813 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		88237CF71B4B786700BD5813 /* tree_bark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_bark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88237CF11B4B72DE00BD5813 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +71,8 @@
 		88237CBF1B4B72C600BD5813 = {
 			isa = PBXGroup;
 			children = (
+				88237CF71B4B786700BD5813 /* tree_bark.png */,
+				88237CF01B4B72DE00BD5813 /* HealthKit.framework */,
 				88237CCA1B4B72C600BD5813 /* HeartSync */,
 				88237CE31B4B72C600BD5813 /* HeartSyncTests */,
 				88237CC91B4B72C600BD5813 /* Products */,
@@ -79,6 +91,7 @@
 		88237CCA1B4B72C600BD5813 /* HeartSync */ = {
 			isa = PBXGroup;
 			children = (
+				88237CF21B4B72DE00BD5813 /* HeartSync.entitlements */,
 				88237CCD1B4B72C600BD5813 /* AppDelegate.swift */,
 				88237CD21B4B72C600BD5813 /* ViewController.swift */,
 				88237CD41B4B72C600BD5813 /* Main.storyboard */,
@@ -86,6 +99,8 @@
 				88237CD91B4B72C600BD5813 /* LaunchScreen.xib */,
 				88237CCF1B4B72C600BD5813 /* HeartSync.xcdatamodeld */,
 				88237CCB1B4B72C600BD5813 /* Supporting Files */,
+				88237CF31B4B733500BD5813 /* HealthHandler.swift */,
+				88237CF51B4B766100BD5813 /* NSDateExtensions.swift */,
 			);
 			path = HeartSync;
 			sourceTree = "<group>";
@@ -164,6 +179,12 @@
 				TargetAttributes = {
 					88237CC71B4B72C600BD5813 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = VT2BD2ZS22;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 					88237CDF1B4B72C600BD5813 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -198,6 +219,7 @@
 				88237CD61B4B72C600BD5813 /* Main.storyboard in Resources */,
 				88237CDB1B4B72C600BD5813 /* LaunchScreen.xib in Resources */,
 				88237CD81B4B72C600BD5813 /* Images.xcassets in Resources */,
+				88237CF81B4B786700BD5813 /* tree_bark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +239,8 @@
 			files = (
 				88237CD31B4B72C600BD5813 /* ViewController.swift in Sources */,
 				88237CCE1B4B72C600BD5813 /* AppDelegate.swift in Sources */,
+				88237CF41B4B733500BD5813 /* HealthHandler.swift in Sources */,
+				88237CF61B4B766100BD5813 /* NSDateExtensions.swift in Sources */,
 				88237CD11B4B72C600BD5813 /* HeartSync.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,9 +368,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HeartSync/HeartSync.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HeartSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -354,9 +382,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HeartSync/HeartSync.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HeartSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

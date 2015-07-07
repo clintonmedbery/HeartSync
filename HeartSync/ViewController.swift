@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "tree_bark.png")!)
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
