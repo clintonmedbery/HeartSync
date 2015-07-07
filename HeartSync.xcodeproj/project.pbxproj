@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		88237CCE1B4B72C600BD5813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CCD1B4B72C600BD5813 /* AppDelegate.swift */; };
+		88237CD11B4B72C600BD5813 /* HeartSync.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 88237CCF1B4B72C600BD5813 /* HeartSync.xcdatamodeld */; };
+		88237CD31B4B72C600BD5813 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CD21B4B72C600BD5813 /* ViewController.swift */; };
+		88237CD61B4B72C600BD5813 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88237CD41B4B72C600BD5813 /* Main.storyboard */; };
+		88237CD81B4B72C600BD5813 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88237CD71B4B72C600BD5813 /* Images.xcassets */; };
+		88237CDB1B4B72C600BD5813 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88237CD91B4B72C600BD5813 /* LaunchScreen.xib */; };
+		88237CE71B4B72C600BD5813 /* HeartSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CE61B4B72C600BD5813 /* HeartSyncTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		88237CE11B4B72C600BD5813 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88237CC01B4B72C600BD5813 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 88237CC71B4B72C600BD5813;
+			remoteInfo = HeartSync;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		88237CC81B4B72C600BD5813 /* HeartSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeartSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88237CCC1B4B72C600BD5813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88237CCD1B4B72C600BD5813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		88237CD01B4B72C600BD5813 /* HeartSync.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HeartSync.xcdatamodel; sourceTree = "<group>"; };
+		88237CD21B4B72C600BD5813 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		88237CD51B4B72C600BD5813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		88237CD71B4B72C600BD5813 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		88237CDA1B4B72C600BD5813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		88237CE01B4B72C600BD5813 /* HeartSyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeartSyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		88237CE51B4B72C600BD5813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88237CE61B4B72C600BD5813 /* HeartSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartSyncTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		88237CC51B4B72C600BD5813 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88237CDD1B4B72C600BD5813 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		88237CBF1B4B72C600BD5813 = {
+			isa = PBXGroup;
+			children = (
+				88237CCA1B4B72C600BD5813 /* HeartSync */,
+				88237CE31B4B72C600BD5813 /* HeartSyncTests */,
+				88237CC91B4B72C600BD5813 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		88237CC91B4B72C600BD5813 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88237CC81B4B72C600BD5813 /* HeartSync.app */,
+				88237CE01B4B72C600BD5813 /* HeartSyncTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88237CCA1B4B72C600BD5813 /* HeartSync */ = {
+			isa = PBXGroup;
+			children = (
+				88237CCD1B4B72C600BD5813 /* AppDelegate.swift */,
+				88237CD21B4B72C600BD5813 /* ViewController.swift */,
+				88237CD41B4B72C600BD5813 /* Main.storyboard */,
+				88237CD71B4B72C600BD5813 /* Images.xcassets */,
+				88237CD91B4B72C600BD5813 /* LaunchScreen.xib */,
+				88237CCF1B4B72C600BD5813 /* HeartSync.xcdatamodeld */,
+				88237CCB1B4B72C600BD5813 /* Supporting Files */,
+			);
+			path = HeartSync;
+			sourceTree = "<group>";
+		};
+		88237CCB1B4B72C600BD5813 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				88237CCC1B4B72C600BD5813 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		88237CE31B4B72C600BD5813 /* HeartSyncTests */ = {
+			isa = PBXGroup;
+			children = (
+				88237CE61B4B72C600BD5813 /* HeartSyncTests.swift */,
+				88237CE41B4B72C600BD5813 /* Supporting Files */,
+			);
+			path = HeartSyncTests;
+			sourceTree = "<group>";
+		};
+		88237CE41B4B72C600BD5813 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				88237CE51B4B72C600BD5813 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		88237CC71B4B72C600BD5813 /* HeartSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88237CEA1B4B72C600BD5813 /* Build configuration list for PBXNativeTarget "HeartSync" */;
+			buildPhases = (
+				88237CC41B4B72C600BD5813 /* Sources */,
+				88237CC51B4B72C600BD5813 /* Frameworks */,
+				88237CC61B4B72C600BD5813 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HeartSync;
+			productName = HeartSync;
+			productReference = 88237CC81B4B72C600BD5813 /* HeartSync.app */;
+			productType = "com.apple.product-type.application";
+		};
+		88237CDF1B4B72C600BD5813 /* HeartSyncTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88237CED1B4B72C600BD5813 /* Build configuration list for PBXNativeTarget "HeartSyncTests" */;
+			buildPhases = (
+				88237CDC1B4B72C600BD5813 /* Sources */,
+				88237CDD1B4B72C600BD5813 /* Frameworks */,
+				88237CDE1B4B72C600BD5813 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				88237CE21B4B72C600BD5813 /* PBXTargetDependency */,
+			);
+			name = HeartSyncTests;
+			productName = HeartSyncTests;
+			productReference = 88237CE01B4B72C600BD5813 /* HeartSyncTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88237CC01B4B72C600BD5813 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Programadores Sans Frontieres";
+				TargetAttributes = {
+					88237CC71B4B72C600BD5813 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					88237CDF1B4B72C600BD5813 = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = 88237CC71B4B72C600BD5813;
+					};
+				};
+			};
+			buildConfigurationList = 88237CC31B4B72C600BD5813 /* Build configuration list for PBXProject "HeartSync" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 88237CBF1B4B72C600BD5813;
+			productRefGroup = 88237CC91B4B72C600BD5813 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				88237CC71B4B72C600BD5813 /* HeartSync */,
+				88237CDF1B4B72C600BD5813 /* HeartSyncTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		88237CC61B4B72C600BD5813 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88237CD61B4B72C600BD5813 /* Main.storyboard in Resources */,
+				88237CDB1B4B72C600BD5813 /* LaunchScreen.xib in Resources */,
+				88237CD81B4B72C600BD5813 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88237CDE1B4B72C600BD5813 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		88237CC41B4B72C600BD5813 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88237CD31B4B72C600BD5813 /* ViewController.swift in Sources */,
+				88237CCE1B4B72C600BD5813 /* AppDelegate.swift in Sources */,
+				88237CD11B4B72C600BD5813 /* HeartSync.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88237CDC1B4B72C600BD5813 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88237CE71B4B72C600BD5813 /* HeartSyncTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		88237CE21B4B72C600BD5813 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 88237CC71B4B72C600BD5813 /* HeartSync */;
+			targetProxy = 88237CE11B4B72C600BD5813 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		88237CD41B4B72C600BD5813 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88237CD51B4B72C600BD5813 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		88237CD91B4B72C600BD5813 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88237CDA1B4B72C600BD5813 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		88237CE81B4B72C600BD5813 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		88237CE91B4B72C600BD5813 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		88237CEB1B4B72C600BD5813 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HeartSync/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		88237CEC1B4B72C600BD5813 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HeartSync/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		88237CEE1B4B72C600BD5813 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HeartSyncTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HeartSync.app/HeartSync";
+			};
+			name = Debug;
+		};
+		88237CEF1B4B72C600BD5813 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HeartSyncTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HeartSync.app/HeartSync";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		88237CC31B4B72C600BD5813 /* Build configuration list for PBXProject "HeartSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88237CE81B4B72C600BD5813 /* Debug */,
+				88237CE91B4B72C600BD5813 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88237CEA1B4B72C600BD5813 /* Build configuration list for PBXNativeTarget "HeartSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88237CEB1B4B72C600BD5813 /* Debug */,
+				88237CEC1B4B72C600BD5813 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		88237CED1B4B72C600BD5813 /* Build configuration list for PBXNativeTarget "HeartSyncTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88237CEE1B4B72C600BD5813 /* Debug */,
+				88237CEF1B4B72C600BD5813 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		88237CCF1B4B72C600BD5813 /* HeartSync.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				88237CD01B4B72C600BD5813 /* HeartSync.xcdatamodel */,
+			);
+			currentVersion = 88237CD01B4B72C600BD5813 /* HeartSync.xcdatamodel */;
+			path = HeartSync.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 88237CC01B4B72C600BD5813 /* Project object */;
+}
