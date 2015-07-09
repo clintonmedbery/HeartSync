@@ -187,6 +187,39 @@ class HealthHandler {
         
     }
     
+    func getLastEntryFromToday(sampleType: HKSampleType, startDate: NSDate, completion: ((lastDate: NSDate!, error: NSError!) -> Void)!){
+        
+        //Build the Predicate
+        let endDate = NSDate()
+        println(startDate)
+        println(endDate)
+
+        
+        let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
+        
+        let limit = 0
+        
+        //sortDescriptor will return the samples in descending order
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
+            
+            if let queryError = error {
+                //println(error)
+                completion(lastDate: nil, error: error)
+                return;
+            }
+            
+            let mostRecentSample = results.first as? HKQuantitySample
+            //println(results.first)
+            if completion != nil {
+                completion(lastDate: mostRecentSample?.startDate, error: nil)
+            }
+        }
+        
+        self.healthKitStore.executeQuery(sampleQuery)
+    }
+    
     func writeHeartRateSample(bpm: Double, date: NSDate){
         let bpmType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         let bpmQuantity = HKQuantity(unit: HKUnit.countUnit(), doubleValue: bpm)
@@ -194,9 +227,9 @@ class HealthHandler {
         
         self.healthKitStore.saveObject(bpmSample, withCompletion: { (success, error) -> Void in
             if( error != nil ) {
-                println("Error saving BMI sample: \(error.localizedDescription)")
+                println("Error saving BPM sample: \(error.localizedDescription)")
             } else {
-                println("BMI sample saved successfully!")
+                println("BPM sample saved successfully!")
             }
         })
         

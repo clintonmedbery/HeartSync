@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HealthKit
 
 class ViewController: UIViewController {
 
@@ -15,11 +16,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var loadPMDataButton: UIButton!
     @IBOutlet weak var stopCheckingButton: UIButton!
     @IBOutlet weak var detailViewButton: UIButton!
+    @IBOutlet weak var authorizeButton: UIButton!
+    
+    var healthHandler: HealthHandler = HealthHandler()
+    
+    //var bpmHK:HKQuantitySample?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "tree_bark.png")!)
         
+        authorizeButton.layer.borderWidth = 1
+        authorizeButton.layer.borderColor = UIColor.blackColor().CGColor
         loadHRMDataButton.layer.borderWidth = 1
         loadHRMDataButton.layer.borderColor = UIColor.blackColor().CGColor
         startCheckingButton.layer.borderWidth = 1
@@ -41,17 +49,33 @@ class ViewController: UIViewController {
     }
 
     @IBAction func loadHRMData(sender: AnyObject) {
-        var today :NSDate = NSDate().beginningOfDay()
-        println(today)
-        let calendar = NSCalendar.currentCalendar()
-        var date: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: 1, toDate: today, options: nil)
+//        var today :NSDate = NSDate().beginningOfDay()
+//        println(today)
+//        let calendar = NSCalendar.currentCalendar()
+//        var date: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: 1, toDate: today, options: nil)
+//        
+//        for index in 1...5 {
+//            println(date)
+//            date = calendar.dateByAddingUnit(.CalendarUnitMinute, value: 1, toDate: date!, options: nil)
+//
+//        }
+        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+        healthHandler.getLastEntryFromToday(sampleType, startDate: NSDate().beginningOfDay(), completion: { (lastDate: NSDate!, error: NSError!) -> Void in
+            if(lastDate != nil) {
+                println("Date")
 
-        for index in 1...5 {
-            println(date)
-            date = calendar.dateByAddingUnit(.CalendarUnitMinute, value: 1, toDate: date!, options: nil)
+                println(lastDate)
+                
+                
+            }
+            if let queryError = error {
+                println("Error")
+                println(error!)
+                
+                
+            }
 
-        }
-        
+        })
         
     }
 
@@ -71,6 +95,24 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func authorizeHealthKit(sender: AnyObject) {
+        healthHandler.authorizeHealthKit { (authorized,  error) -> Void in
+            if authorized {
+                println("HealthKit authorization received.")
+                self.authorizeButton.enabled = false
+                self.authorizeButton.alpha = 0.4
+            }
+            else
+            {
+                println("HealthKit authorization denied!")
+                
+                if error != nil {
+                    println("\(error)")
+                }
+            }
+        }
+    
+    }
     
 }
 
