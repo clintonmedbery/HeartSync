@@ -187,5 +187,22 @@ class HealthHandler {
         
     }
     
+    func writeHeartRateSample(bpm: Double, date: NSDate){
+        let bpmType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+        let bpmQuantity = HKQuantity(unit: HKUnit.countUnit(), doubleValue: bpm)
+        let bpmSample = HKQuantitySample(type: bpmType, quantity: bpmQuantity, startDate: date, endDate: date)
+        
+        self.healthKitStore.saveObject(bpmSample, withCompletion: { (success, error) -> Void in
+            if( error != nil ) {
+                println("Error saving BMI sample: \(error.localizedDescription)")
+            } else {
+                println("BMI sample saved successfully!")
+            }
+        })
+        
+    }
+    
+    
+    
 }
 
