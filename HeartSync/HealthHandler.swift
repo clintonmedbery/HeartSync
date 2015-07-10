@@ -235,6 +235,36 @@ class HealthHandler {
         
     }
     
+    func checkSampleFromDates(sampleType: HKSampleType, startDate: NSDate, endDate: NSDate, completion: ((Bool!, NSError!) -> Void)!) {
+        
+        
+        let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
+        
+        let limit = 0
+        
+        //sortDescriptor will return the samples in descending order
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
+            
+            if let queryError = error {
+                completion(false, error)
+                return;
+            }
+            
+            if(results.count > 0){
+                completion(true,nil)
+            }
+//            if completion != nil {
+//                completion(true,nil)
+//            }
+        }
+        
+        self.healthKitStore.executeQuery(sampleQuery)
+        
+        
+    }
+
     
     
 }

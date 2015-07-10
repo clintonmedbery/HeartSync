@@ -445,6 +445,7 @@
 				88237CEC1B4B72C600BD5813 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		88237CED1B4B72C600BD5813 /* Build configuration list for PBXNativeTarget "HeartSyncTests" */ = {
 			isa = XCConfigurationList;
@@ -453,6 +454,7 @@
 				88237CEF1B4B72C600BD5813 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

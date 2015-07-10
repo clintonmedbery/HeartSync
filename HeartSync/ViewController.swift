@@ -59,23 +59,60 @@ class ViewController: UIViewController {
 //            date = calendar.dateByAddingUnit(.CalendarUnitMinute, value: 1, toDate: date!, options: nil)
 //
 //        }
-        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-        healthHandler.getLastEntryFromToday(sampleType, startDate: NSDate().beginningOfDay(), completion: { (lastDate: NSDate!, error: NSError!) -> Void in
-            if(lastDate != nil) {
-                println("Date")
-
-                println(lastDate)
-                
-                
+//        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+//        healthHandler.getLastEntryFromToday(sampleType, startDate: NSDate().beginningOfDay(), completion: { (lastDate: NSDate!, error: NSError!) -> Void in
+//            if(lastDate != nil) {
+//                println("Date")
+//
+//                println(lastDate)
+//                
+//                
+//            }
+//            if let queryError = error {
+//                println("Error")
+//                println(error!)
+//            }
+//        })
+        addMissingData({ (result:Bool, error:NSError!) -> Void in
+            if(result == true){
+                println("FINISHED STORING HRM DATA")
             }
-            if let queryError = error {
-                println("Error")
-                println(error!)
-                
-                
-            }
-
         })
+        
+    }
+    
+    func addMissingData(completion: (result: Bool, error: NSError!) -> Void){
+        var date :NSDate? = NSDate().beginningOfDay()
+        //println(today)
+        let calendar = NSCalendar.currentCalendar()
+        println("IS EARLIER?")
+        var comparisonDate: NSDate? = date
+        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+        for (var index = 0; index <= 1440; ++index) {
+            
+            var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
+            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
+            
+
+            healthHandler.checkSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (result: Bool!, error: NSError!) -> Void in
+                
+                if(result == true){
+                    println("START DATE")
+                    println(startDate!)
+                    println("END DATE")
+                    println(endDate!)
+                    println("RESULT TRUE")
+                    println(startDate!)
+                    
+                }
+                
+            })
+            
+
+            
+        }
+        //println(date!.earlierDate(date!.endOfDay()))
+        completion(result: true, error: nil)
         
     }
 
