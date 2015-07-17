@@ -18,12 +18,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var detailViewButton: UIButton!
     @IBOutlet weak var authorizeButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var healthHandler: HealthHandler = HealthHandler()
     
     //var bpmHK:HKQuantitySample?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator.hidden = true
+        
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "tree_bark.png")!)
         
         authorizeButton.layer.borderWidth = 1
@@ -49,43 +53,31 @@ class ViewController: UIViewController {
     }
 
     @IBAction func loadHRMData(sender: AnyObject) {
-//        var today :NSDate = NSDate().beginningOfDay()
-//        println(today)
-//        let calendar = NSCalendar.currentCalendar()
-//        var date: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: 1, toDate: today, options: nil)
-//        
-//        for index in 1...5 {
-//            println(date)
-//            date = calendar.dateByAddingUnit(.CalendarUnitMinute, value: 1, toDate: date!, options: nil)
-//
-//        }
-//        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-//        healthHandler.getLastEntryFromToday(sampleType, startDate: NSDate().beginningOfDay(), completion: { (lastDate: NSDate!, error: NSError!) -> Void in
-//            if(lastDate != nil) {
-//                println("Date")
-//
-//                println(lastDate)
-//                
-//                
-//            }
-//            if let queryError = error {
-//                println("Error")
-//                println(error!)
-//            }
-//        })
-        addMissingData({ (result:Bool, error:NSError!) -> Void in
-            if(result == true){
-                println("FINISHED STORING HRM DATA")
-            }
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.hidden = false
+
+        dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), { ()->() in
+            
+            println("Start Animating")
+            
+            self.addMissingData({ (result:Bool, error:NSError!) -> Void in
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.hidden = true
+
+                if(result == true){
+                    println("FINISHED STORING HRM DATA")
+                }
+            })
+
         })
         
     }
     
     func addMissingData(completion: (result: Bool, error: NSError!) -> Void){
+        
         var date :NSDate? = NSDate().beginningOfDay()
         //println(today)
         let calendar = NSCalendar.currentCalendar()
-        println("IS EARLIER?")
         var comparisonDate: NSDate? = date
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         for (var index = 0; index <= 1440; ++index) {
@@ -103,6 +95,8 @@ class ViewController: UIViewController {
                     println(endDate!)
                     println("RESULT TRUE")
                     println(startDate!)
+                    let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: NSDate())
+                    println(hour)
                     
                 }
                 

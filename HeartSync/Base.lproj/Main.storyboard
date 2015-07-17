@@ -132,14 +132,25 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fAu-GL-A75">
+                                <rect key="frame" x="282" y="167" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="O61-64-tqn"/>
+                                    <constraint firstAttribute="height" constant="37" id="cQd-MD-HFJ"/>
+                                </constraints>
+                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="fAu-GL-A75" secondAttribute="centerX" id="E6P-l9-cI0"/>
                             <constraint firstItem="1ET-wD-dtI" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="FMC-ZU-fJZ"/>
+                            <constraint firstItem="fAu-GL-A75" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="147" id="krH-tl-OQ4"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1ET-wD-dtI" secondAttribute="bottom" constant="109" id="qIy-Be-y2I"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="fAu-GL-A75" id="aAP-Hv-dty"/>
                         <outlet property="authorizeButton" destination="ZJ8-E4-H9s" id="6Tq-pN-Ngp"/>
                         <outlet property="detailViewButton" destination="WCU-aY-C6M" id="O6W-lA-hTr"/>
                         <outlet property="loadHRMDataButton" destination="Z4J-Be-ff3" id="atF-dj-GbT"/>
