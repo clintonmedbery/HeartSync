@@ -56,21 +56,28 @@ class ViewController: UIViewController {
         self.activityIndicator.startAnimating()
         self.activityIndicator.hidden = false
 
-        dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), { ()->() in
+     
             
-            println("Start Animating")
+        println("Start Animating")
             
-            self.addMissingData({ (result:Bool, error:NSError!) -> Void in
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.hidden = true
+        self.addMissingData({ (result:Bool, error:NSError!) -> Void in
+                
 
-                if(result == true){
-                    println("FINISHED STORING HRM DATA")
-                }
-            })
-
+            if(result == true){
+                println("FINISHED STORING HRM DATA")
+                
+                
+                
+            }
         })
+
         
+        
+    }
+    
+    func activityIndicatorOff(){
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.hidden = true
     }
     
     func addMissingData(completion: (result: Bool, error: NSError!) -> Void){
@@ -80,13 +87,21 @@ class ViewController: UIViewController {
         let calendar = NSCalendar.currentCalendar()
         var comparisonDate: NSDate? = date
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-        for (var index = 0; index <= 1440; ++index) {
+        for (var index = 0; index <= 1440; index++ ) {
             
             var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
             var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
             
 
             healthHandler.checkSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (result: Bool!, error: NSError!) -> Void in
+                //println("RESULT: \(result)")
+                
+               
+                if let queryError = error {
+                    println("ERROR: \(error!)")
+
+                }
+
                 
                 if(result == true){
                     println("START DATE")
@@ -100,13 +115,31 @@ class ViewController: UIViewController {
                     
                 }
                 
+                if(result == false){
+                    println(false)
+                    //self.healthHandler.writeHeartRateSample(75.0, date: startDate!)
+                }
+                
+                var lastDate:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: 1, toDate: date!, options: nil)
+
+                
+
+                
+                if(startDate! == lastDate){
+                    println("FINISHED")
+                    println(startDate!)
+                    println(lastDate!)
+                    self.activityIndicatorOff()
+                    completion(result: true, error: nil)
+                }
+                
+                
+                
             })
             
 
             
         }
-        //println(date!.earlierDate(date!.endOfDay()))
-        completion(result: true, error: nil)
         
     }
 

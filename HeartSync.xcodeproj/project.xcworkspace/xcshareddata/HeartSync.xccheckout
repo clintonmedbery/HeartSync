@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>FAEBBF75-ACD9-4A48-8A57-F06D87D0B800</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>HeartSync</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>AEAFDED6A3352B9B138EFADAC0ED27032BF10077</key>
 		<string>https://github.com/clintonmedbery/HeartSync.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>HeartSync.xcodeproj/project.xcworkspace</string>
+	<string>HeartSync.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>AEAFDED6A3352B9B138EFADAC0ED27032BF10077</key>

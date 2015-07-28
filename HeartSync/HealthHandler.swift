@@ -236,8 +236,7 @@ class HealthHandler {
     }
     
     func checkSampleFromDates(sampleType: HKSampleType, startDate: NSDate, endDate: NSDate, completion: ((Bool!, NSError!) -> Void)!) {
-        
-        
+
         let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
         
         let limit = 0
@@ -247,17 +246,22 @@ class HealthHandler {
         
         let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
             
+            //println("RESULTS: \(results)")
+
             if let queryError = error {
                 completion(false, error)
                 return;
             }
             
+            println(results.count)
             if(results.count > 0){
                 completion(true,nil)
             }
-//            if completion != nil {
-//                completion(true,nil)
-//            }
+            
+            if (results.count <= 0) {
+                completion(false,nil)
+            }
+            
         }
         
         self.healthKitStore.executeQuery(sampleQuery)
