@@ -118,7 +118,7 @@ class HealthHandler {
     }
     
     func readStepSampleFromDates(sampleType: HKSampleType, startDate: NSDate, endDate: NSDate, completion: ((Int!, NSError!) -> Void)!) {
-        
+        println("READ")
         
         let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
         
@@ -222,7 +222,8 @@ class HealthHandler {
     
     func writeHeartRateSample(bpm: Double, date: NSDate){
         let bpmType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-        let bpmQuantity = HKQuantity(unit: HKUnit.countUnit(), doubleValue: bpm)
+        var heartRateUnit: HKUnit = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())
+        let bpmQuantity = HKQuantity(unit: heartRateUnit, doubleValue: bpm)
         let bpmSample = HKQuantitySample(type: bpmType, quantity: bpmQuantity, startDate: date, endDate: date)
         
         self.healthKitStore.saveObject(bpmSample, withCompletion: { (success, error) -> Void in
@@ -245,20 +246,23 @@ class HealthHandler {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
         let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
-            
-            //println("RESULTS: \(results)")
+            println("RESULTS: \(results.count)")
 
             if let queryError = error {
                 completion(false, error)
+                //println("SENDING FALSE")
                 return;
             }
             
-            println(results.count)
             if(results.count > 0){
+                //println("SENDING TRUE")
+
                 completion(true,nil)
             }
             
             if (results.count <= 0) {
+                //println("SENDING FALSE")
+
                 completion(false,nil)
             }
             

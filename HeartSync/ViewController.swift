@@ -11,6 +11,7 @@ import HealthKit
 
 class ViewController: UIViewController {
 
+    //Variables for our UI Objects
     @IBOutlet weak var loadHRMDataButton: UIButton!
     @IBOutlet weak var startCheckingButton: UIButton!
     @IBOutlet weak var loadPMDataButton: UIButton!
@@ -20,16 +21,20 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    //Object that handles the HealthKit Communication and Data
     var healthHandler: HealthHandler = HealthHandler()
     
     //var bpmHK:HKQuantitySample?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Hide the activity indicator on start
         self.activityIndicator.hidden = true
         
+        //UI Style setup
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "tree_bark.png")!)
-        
         authorizeButton.layer.borderWidth = 1
         authorizeButton.layer.borderColor = UIColor.blackColor().CGColor
         loadHRMDataButton.layer.borderWidth = 1
@@ -44,7 +49,6 @@ class ViewController: UIViewController {
         detailViewButton.layer.borderColor = UIColor.blackColor().CGColor
 
         
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,15 +57,17 @@ class ViewController: UIViewController {
     }
 
     @IBAction func loadHRMData(sender: AnyObject) {
-        self.activityIndicator.startAnimating()
-        self.activityIndicator.hidden = false
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.hidden = false
+        }
+        
 
-     
             
         println("Start Animating")
             
         self.addMissingData({ (result:Bool, error:NSError!) -> Void in
-                
 
             if(result == true){
                 println("FINISHED STORING HRM DATA")
@@ -94,7 +100,7 @@ class ViewController: UIViewController {
             
 
             healthHandler.checkSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (result: Bool!, error: NSError!) -> Void in
-                //println("RESULT: \(result)")
+                println("RESULT: \(result)")
                 
                
                 if let queryError = error {
@@ -117,19 +123,21 @@ class ViewController: UIViewController {
                 
                 if(result == false){
                     println(false)
-                    //self.healthHandler.writeHeartRateSample(75.0, date: startDate!)
+                    self.healthHandler.writeHeartRateSample(75.0, date: startDate!)
                 }
                 
                 var lastDate:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: 1, toDate: date!, options: nil)
 
                 
-
                 
                 if(startDate! == lastDate){
                     println("FINISHED")
                     println(startDate!)
                     println(lastDate!)
-                    self.activityIndicatorOff()
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.activityIndicatorOff()
+
+                    }
                     completion(result: true, error: nil)
                 }
                 
