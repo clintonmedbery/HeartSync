@@ -19,6 +19,7 @@
 		88237CF61B4B766100BD5813 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CF51B4B766100BD5813 /* NSDateExtensions.swift */; };
 		88237CF81B4B786700BD5813 /* tree_bark.png in Resources */ = {isa = PBXBuildFile; fileRef = 88237CF71B4B786700BD5813 /* tree_bark.png */; };
 		8828CC141B6B08D800B86764 /* HeartBeatDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */; };
+		88E74D7F1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		88237CF51B4B766100BD5813 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		88237CF71B4B786700BD5813 /* tree_bark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_bark.png; sourceTree = "<group>"; };
 		8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDataHandler.swift; sourceTree = "<group>"; };
+		88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 		88237CBF1B4B72C600BD5813 = {
 			isa = PBXGroup;
 			children = (
+				88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */,
 				88237CF71B4B786700BD5813 /* tree_bark.png */,
 				88237CF01B4B72DE00BD5813 /* HealthKit.framework */,
 				88237CCA1B4B72C600BD5813 /* HeartSync */,
@@ -242,6 +245,7 @@
 			files = (
 				88237CD31B4B72C600BD5813 /* ViewController.swift in Sources */,
 				8828CC141B6B08D800B86764 /* HeartBeatDataHandler.swift in Sources */,
+				88E74D7F1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift in Sources */,
 				88237CCE1B4B72C600BD5813 /* AppDelegate.swift in Sources */,
 				88237CF41B4B733500BD5813 /* HealthHandler.swift in Sources */,
 				88237CF61B4B766100BD5813 /* NSDateExtensions.swift in Sources */,

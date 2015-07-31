@@ -24,6 +24,9 @@ class ViewController: UIViewController {
     //Object that handles the HealthKit Communication and Data
     var healthHandler: HealthHandler = HealthHandler()
     
+    //Core Data Handler
+    var heartBeatDataHandler: HeartBeatDataHandler = HeartBeatDataHandler()
+    
     //var bpmHK:HKQuantitySample?
     
     
@@ -116,7 +119,7 @@ class ViewController: UIViewController {
                     println(endDate!)
                     println("RESULT TRUE")
                     println(startDate!)
-                    let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: NSDate())
+                    let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
                     println(hour)
                     
                 }
@@ -156,7 +159,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadPMData(sender: AnyObject) {
-        
+        heartBeatDataHandler.loadPacemakerData()
     }
     
     @IBAction func stopChecking(sender: AnyObject) {
