@@ -18,8 +18,9 @@ class HeartBeatDataHandler {
         
     }
     
-    func loadPacemakerData() {
+    func loadPacemakerData(completion: (result: Bool, error: NSError!) -> Void) {
         
+        println("Started")
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
@@ -81,11 +82,6 @@ class HeartBeatDataHandler {
 //                    println("HOUR: \(hour)")
 //                    println("MINUTE: \(minute)")
                 }
-
-                
-
-                
-
                 
             }
         }
@@ -94,7 +90,8 @@ class HeartBeatDataHandler {
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
         }
-        
+        println("Finished")
+
     }
     
     func checkForStaticHeartRateData(heartRateID: Int, hour: Int, minute: Int ) -> Bool{

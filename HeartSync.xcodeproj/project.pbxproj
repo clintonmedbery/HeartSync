@@ -20,6 +20,7 @@
 		88237CF81B4B786700BD5813 /* tree_bark.png in Resources */ = {isa = PBXBuildFile; fileRef = 88237CF71B4B786700BD5813 /* tree_bark.png */; };
 		8828CC141B6B08D800B86764 /* HeartBeatDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */; };
 		88E74D7F1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */; };
+		EC46B6C410735057E16FE730 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7A908E69E494EAE0B1AC97 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A7A908E69E494EAE0B1AC97 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88237CC81B4B72C600BD5813 /* HeartSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeartSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88237CCC1B4B72C600BD5813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88237CCD1B4B72C600BD5813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +52,10 @@
 		88237CF51B4B766100BD5813 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		88237CF71B4B786700BD5813 /* tree_bark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_bark.png; sourceTree = "<group>"; };
 		8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDataHandler.swift; sourceTree = "<group>"; };
+		883235011B6C0F8900F3CBE0 /* HeartSyncBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeartSyncBridgingHeader.h; sourceTree = "<group>"; };
 		88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatEntity.swift; sourceTree = "<group>"; };
+		8BFAB48EE40C9919F5F22BFD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C0B0FED5CF697E2D35CD25EC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				88237CF11B4B72DE00BD5813 /* HealthKit.framework in Frameworks */,
+				EC46B6C410735057E16FE730 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +78,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A598EB9EEF702E6D362CB3D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8BFAB48EE40C9919F5F22BFD /* Pods.debug.xcconfig */,
+				C0B0FED5CF697E2D35CD25EC /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		88237CBF1B4B72C600BD5813 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +96,8 @@
 				88237CCA1B4B72C600BD5813 /* HeartSync */,
 				88237CE31B4B72C600BD5813 /* HeartSyncTests */,
 				88237CC91B4B72C600BD5813 /* Products */,
+				0A598EB9EEF702E6D362CB3D /* Pods */,
+				CF70919B3B891E2F6E5FA32D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +116,7 @@
 				88237CF21B4B72DE00BD5813 /* HeartSync.entitlements */,
 				88237CCD1B4B72C600BD5813 /* AppDelegate.swift */,
 				88237CD21B4B72C600BD5813 /* ViewController.swift */,
+				883235011B6C0F8900F3CBE0 /* HeartSyncBridgingHeader.h */,
 				88237CD41B4B72C600BD5813 /* Main.storyboard */,
 				88237CD71B4B72C600BD5813 /* Images.xcassets */,
 				88237CD91B4B72C600BD5813 /* LaunchScreen.xib */,
@@ -136,6 +154,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CF70919B3B891E2F6E5FA32D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A7A908E69E494EAE0B1AC97 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,9 +169,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 88237CEA1B4B72C600BD5813 /* Build configuration list for PBXNativeTarget "HeartSync" */;
 			buildPhases = (
+				0AAAFECFFFAD4CF6BCCE3D6B /* Check Pods Manifest.lock */,
 				88237CC41B4B72C600BD5813 /* Sources */,
 				88237CC51B4B72C600BD5813 /* Frameworks */,
 				88237CC61B4B72C600BD5813 /* Resources */,
+				4C20E38A870EE1ACA1E19E10 /* Embed Pods Frameworks */,
+				E4D04CA2AB8C61BDC6FB5EF3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -237,6 +266,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0AAAFECFFFAD4CF6BCCE3D6B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4C20E38A870EE1ACA1E19E10 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4D04CA2AB8C61BDC6FB5EF3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		88237CC41B4B72C600BD5813 /* Sources */ = {
@@ -374,6 +451,7 @@
 		};
 		88237CEB1B4B72C600BD5813 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8BFAB48EE40C9919F5F22BFD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HeartSync/HeartSync.entitlements;
@@ -383,11 +461,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = HeartSyncBridgingHeader.h;
 			};
 			name = Debug;
 		};
 		88237CEC1B4B72C600BD5813 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0B0FED5CF697E2D35CD25EC /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HeartSync/HeartSync.entitlements;
@@ -397,6 +477,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = HeartSyncBridgingHeader.h;
 			};
 			name = Release;
 		};

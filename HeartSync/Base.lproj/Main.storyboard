@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -140,11 +140,22 @@
                                 </constraints>
                                 <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TgG-Vo-hKm">
+                                <rect key="frame" x="226" y="542" width="150" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="6TV-Ws-6RS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="TgG-Vo-hKm" firstAttribute="centerX" secondItem="1ET-wD-dtI" secondAttribute="centerX" id="0Qm-7u-irE"/>
                             <constraint firstAttribute="centerX" secondItem="fAu-GL-A75" secondAttribute="centerX" id="E6P-l9-cI0"/>
                             <constraint firstItem="1ET-wD-dtI" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="FMC-ZU-fJZ"/>
+                            <constraint firstItem="TgG-Vo-hKm" firstAttribute="top" secondItem="1ET-wD-dtI" secondAttribute="bottom" constant="51" id="cyc-gx-nWJ"/>
                             <constraint firstItem="fAu-GL-A75" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="147" id="krH-tl-OQ4"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1ET-wD-dtI" secondAttribute="bottom" constant="109" id="qIy-Be-y2I"/>
                         </constraints>
@@ -156,6 +167,7 @@
                         <outlet property="loadHRMDataButton" destination="Z4J-Be-ff3" id="atF-dj-GbT"/>
                         <outlet property="loadPMDataButton" destination="KxS-yw-3ft" id="zGd-Vu-59R"/>
                         <outlet property="startCheckingButton" destination="ZDK-Pc-Bdr" id="VNs-Ix-3U6"/>
+                        <outlet property="statusLabel" destination="TgG-Vo-hKm" id="5cD-9C-sGp"/>
                         <outlet property="stopCheckingButton" destination="yAv-6L-HFo" id="0pE-pt-ldq"/>
                     </connections>
                 </viewController>

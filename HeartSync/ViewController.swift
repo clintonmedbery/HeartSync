@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var detailViewButton: UIButton!
     @IBOutlet weak var authorizeButton: UIButton!
     
+    @IBOutlet weak var statusLabel: UILabel!
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //Object that handles the HealthKit Communication and Data
@@ -66,16 +68,12 @@ class ViewController: UIViewController {
             self.activityIndicator.hidden = false
         }
         
-
-            
         println("Start Animating")
             
         self.addMissingData({ (result:Bool, error:NSError!) -> Void in
 
             if(result == true){
                 println("FINISHED STORING HRM DATA")
-                
-                
                 
             }
         })
@@ -104,14 +102,12 @@ class ViewController: UIViewController {
 
             healthHandler.checkSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (result: Bool!, error: NSError!) -> Void in
                 println("RESULT: \(result)")
-                
                
                 if let queryError = error {
                     println("ERROR: \(error!)")
 
                 }
 
-                
                 if(result == true){
                     println("START DATE")
                     println(startDate!)
@@ -143,12 +139,7 @@ class ViewController: UIViewController {
                     }
                     completion(result: true, error: nil)
                 }
-                
-                
-                
             })
-            
-
             
         }
         
@@ -159,7 +150,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadPMData(sender: AnyObject) {
-        heartBeatDataHandler.loadPacemakerData()
+        heartBeatDataHandler.loadPacemakerData({ (result:Bool, error:NSError!) -> Void in
+        
+        
+        })
     }
     
     @IBAction func stopChecking(sender: AnyObject) {

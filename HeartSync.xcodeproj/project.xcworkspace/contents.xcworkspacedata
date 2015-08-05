@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../HeartBeatEntity.swift">
-   </FileRef>
-   <FileRef
       location = "self:HeartSync.xcodeproj">
    </FileRef>
 </Workspace>
