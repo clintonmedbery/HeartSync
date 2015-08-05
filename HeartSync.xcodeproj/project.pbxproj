@@ -461,7 +461,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = HeartSyncBridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/HeartSyncBridgingHeader.h";
 			};
 			name = Debug;
 		};
@@ -477,7 +477,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = HeartSyncBridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/HeartSyncBridgingHeader.h";
 			};
 			name = Release;
 		};

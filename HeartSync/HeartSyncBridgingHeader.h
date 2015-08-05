@@ -8,6 +8,6 @@
 
 #ifndef HeartSync_HeartSyncBridgingHeader_h
 #define HeartSync_HeartSyncBridgingHeader_h
-#import "CorePlot-CocoaTouch.h"
+#import "CorePlot/CorePlot-CocoaTouch.h"
 
 #endif
