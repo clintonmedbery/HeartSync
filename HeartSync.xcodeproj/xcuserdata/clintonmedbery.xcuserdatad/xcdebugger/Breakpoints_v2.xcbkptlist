@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HeartSync/HealthHandler.swift"
-            timestampString = "460508038.229212"
+            timestampString = "460580573.411091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "checkSampleFromDates(_:startDate:endDate:completion:)"
             landmarkType = "5">
          </BreakpointContent>

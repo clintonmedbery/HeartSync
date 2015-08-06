@@ -220,7 +220,7 @@ class HealthHandler {
         self.healthKitStore.executeQuery(sampleQuery)
     }
     
-    func writeHeartRateSample(bpm: Double, date: NSDate){
+    func writeHeartRateSample(bpm: Double, date: NSDate, completion: ((success: Bool!, error: NSError!) -> Void)!){
         let bpmType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         var heartRateUnit: HKUnit = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())
         let bpmQuantity = HKQuantity(unit: heartRateUnit, doubleValue: bpm)
@@ -229,8 +229,11 @@ class HealthHandler {
         self.healthKitStore.saveObject(bpmSample, withCompletion: { (success, error) -> Void in
             if( error != nil ) {
                 println("Error saving BPM sample: \(error.localizedDescription)")
+                completion(success: false, error: error)
+
             } else {
-                println("BPM sample saved successfully!")
+                println("BPM sample saved successfully! Start Date: \(date)  BPM: \(bpm)")
+                completion(success: true, error: nil)
             }
         })
         
@@ -246,7 +249,7 @@ class HealthHandler {
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
         let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
-            println("RESULTS: \(results.count)")
+            //println("RESULTS: \(results.count)")
 
             if let queryError = error {
                 completion(false, error)
@@ -301,7 +304,7 @@ class HealthHandler {
                         println(heartBeatResult?.endDate)
 
                         if(success == true){
-                            println("OBJECT DELETED")
+                            //println("OBJECT DELETED")
                             
                             
                         } else {
