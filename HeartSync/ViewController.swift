@@ -69,14 +69,36 @@ class ViewController: UIViewController {
         }
         
         println("Start Animating")
-            
-        self.addMissingData({ (result:Bool, error:NSError!) -> Void in
+        
+        var startDate :NSDate? = NSDate().beginningOfDay()
+        let calendar = NSCalendar.currentCalendar()
 
-            if(result == true){
-                println("FINISHED STORING HRM DATA")
+        var endDate: NSDate? = calendar.dateByAddingUnit(NSCalendarUnit.CalendarUnitDay, value: 1, toDate: startDate!, options: nil)
+        
+        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+
+        self.healthHandler.deleteSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!) { (success, error) -> Void in
+            println(success)
+            println(endDate)
+
+            if let queryError = error {
+                println("ERROR: \(error!)")
                 
             }
-        })
+            
+            if(success == true) {
+                self.addMissingData({ (result:Bool, error:NSError!) -> Void in
+                    
+                    if(result == true){
+                        println("FINISHED STORING HRM DATA")
+                        
+                    }
+                })
+            }
+
+        }
+        
+        
 
         
         

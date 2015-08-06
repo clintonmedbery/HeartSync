@@ -9,60 +9,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HeartSync/ViewController.swift"
-            timestampString = "460495950.806916"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "loadHRMData(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HeartSync/ViewController.swift"
-            timestampString = "460495950.806916"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "addMissingData(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HeartSync/HealthHandler.swift"
-            timestampString = "459971205.180063"
+            timestampString = "460508038.229212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "240"
             endingLineNumber = "240"
-            landmarkName = "checkSampleFromDates(_:startDate:endDate:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HeartSync/HealthHandler.swift"
-            timestampString = "459971205.180063"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
             landmarkName = "checkSampleFromDates(_:startDate:endDate:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -79,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
             endingLineNumber = "22"
-            landmarkName = "loadPacemakerData()"
+            landmarkName = "loadPacemakerData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
             endingLineNumber = "35"
-            landmarkName = "loadPacemakerData()"
+            landmarkName = "loadPacemakerData(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -143,8 +95,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
             endingLineNumber = "125"
-            landmarkName = "checkForStaticHeartRateData(_:hour:minute:)"
-            landmarkType = "5">
+            landmarkName = "HeartBeatDataHandler"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

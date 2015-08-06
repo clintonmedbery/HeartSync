@@ -273,6 +273,63 @@ class HealthHandler {
         
     }
 
+    func deleteSampleFromDates(sampleType: HKSampleType, startDate: NSDate, endDate: NSDate, completion: ((Bool!, NSError!) -> Void)!) {
+        
+        let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
+        
+        let limit = 0
+        
+        //sortDescriptor will return the samples in descending order
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
+            //println("RESULTS: \(results.count)")
+            
+            if let queryError = error {
+                
+                completion(false, error)
+                //println("SENDING FALSE")
+                return;
+            }
+            
+            if(results.count > 0){
+                //println("SENDING TRUE")
+                for(var i = 0; i <= results.count - 1; i++) {
+                    var heartBeatResult: HKSample? = results[i] as? HKSample
+                    self.healthKitStore.deleteObject(heartBeatResult!, withCompletion: { (success, error: NSError!) -> Void in
+                        
+                        println(heartBeatResult?.endDate)
+
+                        if(success == true){
+                            println("OBJECT DELETED")
+                            
+                            
+                        } else {
+                            println("OBJECT DELETE ERROR")
+                        }
+                        
+                        if(heartBeatResult?.startDate == startDate){
+                            completion(true,nil)
+                            
+                        }
+                    })
+                }
+                
+            } else {
+                
+                completion(true,nil)
+                
+            }
+            
+            
+            
+        }
+        
+        self.healthKitStore.executeQuery(sampleQuery)
+        
+        
+    }
+
     
     
 }
