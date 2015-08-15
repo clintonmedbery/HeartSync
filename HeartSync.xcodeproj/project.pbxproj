@@ -19,6 +19,7 @@
 		88237CF61B4B766100BD5813 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CF51B4B766100BD5813 /* NSDateExtensions.swift */; };
 		88237CF81B4B786700BD5813 /* tree_bark.png in Resources */ = {isa = PBXBuildFile; fileRef = 88237CF71B4B786700BD5813 /* tree_bark.png */; };
 		8828CC141B6B08D800B86764 /* HeartBeatDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */; };
+		883D6AC31B79684400FB9469 /* HeartBeatDataOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D6AC21B79684400FB9469 /* HeartBeatDataOperations.swift */; };
 		88E74D7F1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */; };
 		EC46B6C410735057E16FE730 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7A908E69E494EAE0B1AC97 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		88237CF71B4B786700BD5813 /* tree_bark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_bark.png; sourceTree = "<group>"; };
 		8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDataHandler.swift; sourceTree = "<group>"; };
 		883235011B6C0F8900F3CBE0 /* HeartSyncBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeartSyncBridgingHeader.h; sourceTree = "<group>"; };
+		883D6AC21B79684400FB9469 /* HeartBeatDataOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDataOperations.swift; sourceTree = "<group>"; };
 		88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatEntity.swift; sourceTree = "<group>"; };
 		8BFAB48EE40C9919F5F22BFD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C0B0FED5CF697E2D35CD25EC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				88237CF31B4B733500BD5813 /* HealthHandler.swift */,
 				88237CF51B4B766100BD5813 /* NSDateExtensions.swift */,
 				8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */,
+				883D6AC21B79684400FB9469 /* HeartBeatDataOperations.swift */,
 			);
 			path = HeartSync;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 		88237CC01B4B72C600BD5813 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Programadores Sans Frontieres";
 				TargetAttributes = {
@@ -326,6 +330,7 @@
 				88237CCE1B4B72C600BD5813 /* AppDelegate.swift in Sources */,
 				88237CF41B4B733500BD5813 /* HealthHandler.swift in Sources */,
 				88237CF61B4B766100BD5813 /* NSDateExtensions.swift in Sources */,
+				883D6AC31B79684400FB9469 /* HeartBeatDataOperations.swift in Sources */,
 				88237CD11B4B72C600BD5813 /* HeartSync.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

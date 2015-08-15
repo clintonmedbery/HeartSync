@@ -34,6 +34,8 @@ class ViewController: UIViewController {
     var isHRMDataLoaded: Bool?
     var isHRMDataControl: Bool?
     
+    var heartBeatDataRecords = [HeartRateDataRecord]()
+    let pendingComparisons = PendingComparisons()
     
     override func viewDidLoad() {
         super.viewDidLoad()
