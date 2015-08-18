@@ -28,9 +28,9 @@ class HeartRateDataRecord {
     var pacemakerReading: Float?
     
     
-    init(startDate: NSDate) {
+    init(startDate: NSDate, endDate: NSDate) {
         self.startDate = startDate
-        
+        self.endDate = endDate
     }
     
 }

@@ -10,6 +10,8 @@ import UIKit
 import HealthKit
 
 class ViewController: UIViewController {
+    
+    let MINUTES_IN_DAY: Int = 1440
 
     //Variables for our UI Objects
     @IBOutlet weak var loadHRMDataButton: UIButton!
@@ -124,7 +126,7 @@ class ViewController: UIViewController {
         let calendar = NSCalendar.currentCalendar()
         var comparisonDate: NSDate? = date
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-        for (var index = 0; index <= 1440; index++ ) {
+        for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
             
             var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
             var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
@@ -297,10 +299,6 @@ class ViewController: UIViewController {
                     
                 }
                 
-                
-                
-                
-                
             })
             
         }
@@ -309,6 +307,35 @@ class ViewController: UIViewController {
 
 
     @IBAction func startChecking(sender: AnyObject) {
+        var date :NSDate? = NSDate().beginningOfDay()
+        //println(today)
+        let calendar = NSCalendar.currentCalendar()
+        var comparisonDate: NSDate? = date
+        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+        let operationQueue = NSOperationQueue.mainQueue()
+        
+        
+        for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
+            var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
+            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
+            
+            let heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
+            self.heartBeatDataRecords.append(heartRateDataRecord)
+            
+            
+            let syncOperation: DataComparer = DataComparer(heartRateDataRecord: heartRateDataRecord)
+            
+            syncOperation.completionBlock = {
+                println("COMPLETE")
+            }
+            
+            operationQueue.addOperation(syncOperation)
+            
+
+        }
+        
+        
+        
         
     }
     
