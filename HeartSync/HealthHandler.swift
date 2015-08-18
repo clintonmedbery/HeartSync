@@ -187,6 +187,52 @@ class HealthHandler {
         
     }
     
+    func readHeartRateSampleFromDates(sampleType: HKSampleType, startDate: NSDate, endDate: NSDate, completion: ((Bool!, Int!, NSError!) -> Void)!) {
+        
+        let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
+        
+        let limit = 0
+        
+        //sortDescriptor will return the samples in descending order
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
+            //println("RESULTS: \(results.count)")
+            
+            if let queryError = error {
+                completion(nil, nil, error)
+                return;
+            }
+            
+            if (results.isEmpty) {
+                completion(nil, 0, nil)
+            }
+            var count: Double = 0
+            
+            
+            for result in results as! [HKQuantitySample]
+            {
+                println(result)
+                
+                
+                count += result.quantity.doubleValueForUnit(HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()))
+                
+            }
+            
+            if completion != nil {
+                
+                completion(true,Int(count),nil)
+                
+            }
+            
+        }
+        
+        self.healthKitStore.executeQuery(sampleQuery)
+        
+        
+    }
+
+    
     func getLastEntryFromToday(sampleType: HKSampleType, startDate: NSDate, completion: ((lastDate: NSDate!, error: NSError!) -> Void)!){
         
         //Build the Predicate
@@ -220,11 +266,13 @@ class HealthHandler {
         self.healthKitStore.executeQuery(sampleQuery)
     }
     
-    func writeHeartRateSample(bpm: Double, date: NSDate, completion: ((success: Bool!, error: NSError!) -> Void)!){
+    func writeHeartRateSample(bpm: Double, startDate: NSDate, endDate: NSDate, completion: ((success: Bool!, error: NSError!) -> Void)!){
         let bpmType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         var heartRateUnit: HKUnit = HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit())
         let bpmQuantity = HKQuantity(unit: heartRateUnit, doubleValue: bpm)
-        let bpmSample = HKQuantitySample(type: bpmType, quantity: bpmQuantity, startDate: date, endDate: date)
+        
+        
+        let bpmSample = HKQuantitySample(type: bpmType, quantity: bpmQuantity, startDate: startDate, endDate: endDate)
         
         self.healthKitStore.saveObject(bpmSample, withCompletion: { (success, error) -> Void in
             if( error != nil ) {
@@ -232,7 +280,7 @@ class HealthHandler {
                 completion(success: false, error: error)
 
             } else {
-                println("BPM sample saved successfully! Start Date: \(date)  BPM: \(bpm)")
+                println("BPM sample saved successfully! Start Date: \(startDate)  BPM: \(bpm)")
                 completion(success: true, error: nil)
             }
         })

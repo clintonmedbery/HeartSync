@@ -62,9 +62,9 @@ class DataComparer: NSOperation{
         //Operations
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         
-        self.healthHandler.readSampleFromDate(sampleType, startDate: heartRateDataRecord.startDate, completion: { (mostRecentHeartBeat, error) -> Void in
+        self.healthHandler.readHeartRateSampleFromDates(sampleType, startDate: heartRateDataRecord.startDate, endDate: heartRateDataRecord.endDate, completion: { (didRecieve, count, error) -> Void in
             
-            println(mostRecentHeartBeat)
+            println(count)
             
         })
         

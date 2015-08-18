@@ -39,6 +39,8 @@ class ViewController: UIViewController {
     var heartBeatDataRecords = [HeartRateDataRecord]()
     let pendingComparisons = PendingComparisons()
     
+    var operationQueue: NSOperationQueue?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,8 +117,11 @@ class ViewController: UIViewController {
     }
     
     func activityIndicatorOff(){
-        self.activityIndicator.stopAnimating()
-        self.activityIndicator.hidden = true
+        dispatch_async(dispatch_get_main_queue()) {
+
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.hidden = true
+        }
     }
     
     func addMissingData(heartRate: Double, completion: (result: Bool, error: NSError!) -> Void){
@@ -129,7 +134,7 @@ class ViewController: UIViewController {
         for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
             
             var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
+            var endDate: NSDate? =  calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
             
 
             healthHandler.checkSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (result: Bool!, error: NSError!) -> Void in
@@ -167,7 +172,7 @@ class ViewController: UIViewController {
                 
                 if(result == false){
                     println(false)
-                    self.healthHandler.writeHeartRateSample(heartRate, date: startDate!, completion: { (success, error) -> Void in
+                    self.healthHandler.writeHeartRateSample(heartRate, startDate: startDate!, endDate: endDate!, completion: { (success, error) -> Void in
                         
                         if(startDate! == lastDate){
                             println("FINISHED")
@@ -212,7 +217,7 @@ class ViewController: UIViewController {
         for (var index = 0; index <= numOfMinutes; index++ ) {
             
             var entryStartDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: firstDate, options: nil)
-            var entryEndDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: firstDate, options: nil)
+            var entryEndDate: NSDate? =  calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: entryStartDate!, options: nil)
             
             
             healthHandler.checkSampleFromDates(sampleType, startDate: entryStartDate!, endDate: entryEndDate!, completion: { (result: Bool!, error: NSError!) -> Void in
@@ -253,7 +258,7 @@ class ViewController: UIViewController {
                         
                         var newHeartRate: Int = Int(heartRate - 5) + Int(arc4random_uniform(10))
                         
-                        self.healthHandler.writeHeartRateSample(Double(newHeartRate), date: entryStartDate!, completion: { (success, error) -> Void in
+                        self.healthHandler.writeHeartRateSample(Double(newHeartRate), startDate: entryStartDate!, endDate: entryEndDate!, completion: { (success, error) -> Void in
                             
                             println("Start Date: \(entryEndDate!)  Last Date: \(lastDate)")
                             
@@ -276,7 +281,7 @@ class ViewController: UIViewController {
                         
                     } else {
                         
-                        self.healthHandler.writeHeartRateSample(heartRate, date: entryStartDate!, completion: { (success, error) -> Void in
+                        self.healthHandler.writeHeartRateSample(heartRate, startDate: entryStartDate!, endDate: entryEndDate!, completion: { (success, error) -> Void in
                             
                             if(entryEndDate! == lastDate){
                                 println("FINISHED")
@@ -307,32 +312,84 @@ class ViewController: UIViewController {
 
 
     @IBAction func startChecking(sender: AnyObject) {
+        
+        operationQueue = NSOperationQueue()
+        operationQueue?.name = "sync_Queue"
+        
+        
+        
         var date :NSDate? = NSDate().beginningOfDay()
         //println(today)
         let calendar = NSCalendar.currentCalendar()
         var comparisonDate: NSDate? = date
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-        let operationQueue = NSOperationQueue.mainQueue()
         
         
         for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
+            
             var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
+            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
+            let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
+            let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
+
+            var heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
             
-            let heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
-            self.heartBeatDataRecords.append(heartRateDataRecord)
+            let syncOperation = NSBlockOperation { () -> Void in
+                
             
+                let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
             
-            let syncOperation: DataComparer = DataComparer(heartRateDataRecord: heartRateDataRecord)
-            
+                self.healthHandler.readHeartRateSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (didRecieve, count, error) -> Void in
+                
+                    println(count)
+                    
+                    
+                })
+                
+            }
             syncOperation.completionBlock = {
                 println("COMPLETE")
             }
             
-            operationQueue.addOperation(syncOperation)
             
-
+            syncOperation.queuePriority = NSOperationQueuePriority.High
+            operationQueue?.addOperation(syncOperation)
+            
+            
         }
+
+        
+        
+        
+        
+        
+//        var date :NSDate? = NSDate().beginningOfDay()
+//        //println(today)
+//        let calendar = NSCalendar.currentCalendar()
+//        var comparisonDate: NSDate? = date
+//        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+//        let operationQueue = NSOperationQueue.mainQueue()
+//        
+//        
+//        for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
+//            var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
+//            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
+//            
+//            let heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
+//            self.heartBeatDataRecords.append(heartRateDataRecord)
+//            println(startDate)
+//            println(endDate)
+//            
+//            let syncOperation: DataComparer = DataComparer(heartRateDataRecord: heartRateDataRecord)
+//            
+//            syncOperation.completionBlock = {
+//                println("COMPLETE")
+//            }
+//            
+//            operationQueue.addOperation(syncOperation)
+//            
+//
+//        }
         
         
         
@@ -340,11 +397,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadPMData(sender: AnyObject) {
+        
+        
         dispatch_async(dispatch_get_main_queue()) {
+            
             self.activityIndicator.startAnimating()
             self.activityIndicator.hidden = false
+            
         }
         heartBeatDataHandler.loadPacemakerData({ (result:Bool, error:NSError!) -> Void in
+            
+            
             self.activityIndicatorOff()
             
         

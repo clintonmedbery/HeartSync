@@ -74,13 +74,13 @@ class HeartBeatDataHandler {
                     
                     
                 } else {
-//                    println()
-//                    println("DATA ALREADY EXISTS")
-//                    println("ID: \(idNum)")
-//                    println("INDEX \(index)")
-//                    println("TIME \(startDate)")
-//                    println("HOUR: \(hour)")
-//                    println("MINUTE: \(minute)")
+                    println()
+                    println("DATA ALREADY EXISTS")
+                    println("ID: \(idNum)")
+                    println("INDEX \(index)")
+                    println("TIME \(startDate)")
+                    println("HOUR: \(hour)")
+                    println("MINUTE: \(minute)")
                 }
                 
             }
@@ -91,7 +91,7 @@ class HeartBeatDataHandler {
             println("Could not save \(error), \(error?.userInfo)")
         }
         println("Finished")
-
+        completion(result: true, error: nil)
     }
     
     func checkForStaticHeartRateData(heartRateID: Int, hour: Int, minute: Int ) -> Bool{
