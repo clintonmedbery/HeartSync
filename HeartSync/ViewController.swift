@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     var isHRMDataLoaded: Bool?
     var isHRMDataControl: Bool?
     
-    var heartBeatDataRecords = [HeartRateDataRecord]()
+    var completeRecords = [HeartRateDataRecord]()
     let pendingComparisons = PendingComparisons()
     
     var operationQueue: NSOperationQueue?
@@ -318,78 +318,81 @@ class ViewController: UIViewController {
         
         
         
-        var date :NSDate? = NSDate().beginningOfDay()
+        var startDate :NSDate? = NSDate().beginningOfDay()
+        var endDate = startDate?.endOfDay()
         //println(today)
         let calendar = NSCalendar.currentCalendar()
-        var comparisonDate: NSDate? = date
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         
-        
-        for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
-            
-            var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
-            let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
-            let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
+        var heartRateMonitorRecords = [HeartRateDataRecord]()
 
-            var heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
-            
-            let syncOperation = NSBlockOperation { () -> Void in
-                
-            
-                let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-            
-                self.healthHandler.readHeartRateSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (didRecieve, count, error) -> Void in
-                
-                    println(count)
-                    
-                    
-                })
+        
+        self.healthHandler.returnHeartRateSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!) { (success, hkDataRecords, error) -> Void in
+            if(success == false){
+                println("No Data")
                 
             }
-            syncOperation.completionBlock = {
-                println("COMPLETE")
+            if(success == true){
+                for record in hkDataRecords {
+                    heartRateMonitorRecords.append(record)
+                    record.printRecord()
+                }
             }
-            
-            
-            syncOperation.queuePriority = NSOperationQueuePriority.High
-            operationQueue?.addOperation(syncOperation)
-            
-            
         }
-
+        
+        var pacemakerDataRecords = self.heartBeatDataHandler.getAllTestData() as [HeartRateDataRecord]
+        
+        for hrmRecord in heartRateMonitorRecords {
+            for pacemakerRecord in pacemakerDataRecords {
+                if(hrmRecord.startDate == pacemakerRecord.startDate && hrmRecord.endDate == pacemakerRecord.endDate){
+                    
+                    //Add sync here
+                    
+                    
+                    
+                }
+            }
+        }
         
         
         
         
-        
-//        var date :NSDate? = NSDate().beginningOfDay()
-//        //println(today)
-//        let calendar = NSCalendar.currentCalendar()
-//        var comparisonDate: NSDate? = date
-//        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-//        let operationQueue = NSOperationQueue.mainQueue()
-//        
-//        
 //        for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
+//            
 //            var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-//            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
+//            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
+//            let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
+//            let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
+//
+//            var heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
 //            
-//            let heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
-//            self.heartBeatDataRecords.append(heartRateDataRecord)
-//            println(startDate)
-//            println(endDate)
+//            let syncOperation = NSBlockOperation { () -> Void in
+//                
 //            
-//            let syncOperation: DataComparer = DataComparer(heartRateDataRecord: heartRateDataRecord)
+//                let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
 //            
+//                self.healthHandler.readHeartRateSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (didRecieve, count, error) -> Void in
+//                
+//                    println(count)
+//                    
+//                    
+//                })
+//                
+//            }
 //            syncOperation.completionBlock = {
 //                println("COMPLETE")
 //            }
 //            
-//            operationQueue.addOperation(syncOperation)
 //            
-//
+//            syncOperation.queuePriority = NSOperationQueuePriority.High
+//            operationQueue?.addOperation(syncOperation)
+//            
+//            
 //        }
+
+        
+        
+        
         
         
         

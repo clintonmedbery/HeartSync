@@ -34,7 +34,7 @@ class HeartBeatDataHandler {
             for (var index = 0; index <= 1439; index++ ) {
                 
                 var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-                var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: (index + 1), toDate: date!, options: nil)
+                var endDate: NSDate? =  calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
                 
                 let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
                 let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
@@ -120,6 +120,53 @@ class HeartBeatDataHandler {
         
         return false
         
+    }
+    
+    func getAllTestData() -> [HeartRateDataRecord] {
+        
+        let fetchRequest = NSFetchRequest(entityName: "HeartBeatEntity")
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        
+        let fetchedEntities = managedContext.executeFetchRequest(fetchRequest, error: nil) as! [HeartBeatEntity]
+        
+        if(fetchedEntities.isEmpty){
+            return []
+        }
+        
+        var heartRateDataRecords = [HeartRateDataRecord]()
+        let calendar = NSCalendar.currentCalendar()
+
+        
+        for entity in fetchedEntities{
+            
+            if(entity.isTestData == true) {
+                let todayDate: NSDate = NSDate().beginningOfDay()
+                let startComponents = calendar.components(.CalendarUnitMinute | .CalendarUnitHour | .CalendarUnitSecond, fromDate: entity.startDate)
+                var startDate = calendar.dateByAddingUnit(.CalendarUnitHour, value: startComponents.hour, toDate: todayDate, options: nil)
+                startDate = calendar.dateByAddingUnit(.CalendarUnitMinute, value: startComponents.minute, toDate: startDate!, options: nil)
+                startDate = calendar.dateByAddingUnit(.CalendarUnitSecond, value: startComponents.second, toDate: startDate!, options: nil)
+                
+                let endComponents = calendar.components(.CalendarUnitMinute | .CalendarUnitHour | .CalendarUnitSecond, fromDate: entity.endDate)
+                var endDate = calendar.dateByAddingUnit(.CalendarUnitHour, value: endComponents.hour, toDate: todayDate, options: nil)
+                endDate = calendar.dateByAddingUnit(.CalendarUnitMinute, value: endComponents.minute, toDate: endDate!, options: nil)
+                endDate = calendar.dateByAddingUnit(.CalendarUnitSecond, value: endComponents.second, toDate: endDate!, options: nil)
+                
+                
+                
+                
+                var dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
+                dataRecord.pacemakerReading = Double(entity.bpm)
+                dataRecord.state = HeartRateDataState.PMData
+                heartRateDataRecords.append(dataRecord)
+
+                
+            }
+            
+        }
+        
+       return heartRateDataRecords
+
     }
     
     

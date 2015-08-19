@@ -11,7 +11,7 @@ import UIKit
 import HealthKit
 
 enum HeartRateDataState {
-    case New, Ready, Compared, Uploaded
+    case New, HRMData, PMData, Ready, Compared, Uploaded
 }
 
 enum HeartRateDataOutcome {
@@ -24,8 +24,8 @@ class HeartRateDataRecord {
     let endDate:NSDate
     var state = HeartRateDataState.New
     var outcome = HeartRateDataOutcome.NotDetermined
-    var heartRateMonitorReading: Float?
-    var pacemakerReading: Float?
+    var heartRateMonitorReading: Double?
+    var pacemakerReading: Double?
     
     
     init(startDate: NSDate, endDate: NSDate) {
@@ -33,6 +33,11 @@ class HeartRateDataRecord {
         self.endDate = endDate
     }
     
+    func printRecord(){
+        println("SOURCE: \(state) HRM BPM: \(self.heartRateMonitorReading!) PM BPM: \(pacemakerReading) OUTCOME: \(outcome)")
+        println("START DATE: \(startDate) END DATE: \(endDate)")
+        
+    }
 }
 
 class PendingComparisons {

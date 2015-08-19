@@ -14,12 +14,12 @@
 		88237CD81B4B72C600BD5813 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88237CD71B4B72C600BD5813 /* Images.xcassets */; };
 		88237CDB1B4B72C600BD5813 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88237CD91B4B72C600BD5813 /* LaunchScreen.xib */; };
 		88237CE71B4B72C600BD5813 /* HeartSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CE61B4B72C600BD5813 /* HeartSyncTests.swift */; };
-		88237CF11B4B72DE00BD5813 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88237CF01B4B72DE00BD5813 /* HealthKit.framework */; };
 		88237CF41B4B733500BD5813 /* HealthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CF31B4B733500BD5813 /* HealthHandler.swift */; };
 		88237CF61B4B766100BD5813 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88237CF51B4B766100BD5813 /* NSDateExtensions.swift */; };
 		88237CF81B4B786700BD5813 /* tree_bark.png in Resources */ = {isa = PBXBuildFile; fileRef = 88237CF71B4B786700BD5813 /* tree_bark.png */; };
 		8828CC141B6B08D800B86764 /* HeartBeatDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */; };
 		883D6AC31B79684400FB9469 /* HeartBeatDataOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D6AC21B79684400FB9469 /* HeartBeatDataOperations.swift */; };
+		8852D2291B850B9D004CC006 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8852D2281B850B9D004CC006 /* HealthKit.framework */; };
 		88E74D7F1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */; };
 		EC46B6C410735057E16FE730 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7A908E69E494EAE0B1AC97 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -47,7 +47,6 @@
 		88237CE01B4B72C600BD5813 /* HeartSyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeartSyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		88237CE51B4B72C600BD5813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88237CE61B4B72C600BD5813 /* HeartSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartSyncTests.swift; sourceTree = "<group>"; };
-		88237CF01B4B72DE00BD5813 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		88237CF21B4B72DE00BD5813 /* HeartSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HeartSync.entitlements; sourceTree = "<group>"; };
 		88237CF31B4B733500BD5813 /* HealthHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthHandler.swift; sourceTree = "<group>"; };
 		88237CF51B4B766100BD5813 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
@@ -55,6 +54,7 @@
 		8828CC131B6B08D800B86764 /* HeartBeatDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDataHandler.swift; sourceTree = "<group>"; };
 		883235011B6C0F8900F3CBE0 /* HeartSyncBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeartSyncBridgingHeader.h; sourceTree = "<group>"; };
 		883D6AC21B79684400FB9469 /* HeartBeatDataOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDataOperations.swift; sourceTree = "<group>"; };
+		8852D2281B850B9D004CC006 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatEntity.swift; sourceTree = "<group>"; };
 		8BFAB48EE40C9919F5F22BFD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C0B0FED5CF697E2D35CD25EC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,8 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88237CF11B4B72DE00BD5813 /* HealthKit.framework in Frameworks */,
 				EC46B6C410735057E16FE730 /* Pods.framework in Frameworks */,
+				8852D2291B850B9D004CC006 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,6 @@
 			children = (
 				88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */,
 				88237CF71B4B786700BD5813 /* tree_bark.png */,
-				88237CF01B4B72DE00BD5813 /* HealthKit.framework */,
 				88237CCA1B4B72C600BD5813 /* HeartSync */,
 				88237CE31B4B72C600BD5813 /* HeartSyncTests */,
 				88237CC91B4B72C600BD5813 /* Products */,
@@ -160,6 +159,7 @@
 		CF70919B3B891E2F6E5FA32D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8852D2281B850B9D004CC006 /* HealthKit.framework */,
 				7A7A908E69E494EAE0B1AC97 /* Pods.framework */,
 			);
 			name = Frameworks;

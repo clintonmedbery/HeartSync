@@ -100,7 +100,6 @@
                                         </state>
                                         <connections>
                                             <action selector="authorizeHealthKit:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5Zi-q7-TfA"/>
-                                            <action selector="detailView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ZzG-MA-ZHG"/>
                                         </connections>
                                     </button>
                                 </subviews>

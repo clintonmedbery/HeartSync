@@ -231,7 +231,58 @@ class HealthHandler {
         
         
     }
-
+    
+    func returnHeartRateSampleFromDates(sampleType: HKSampleType, startDate: NSDate, endDate: NSDate, completion: ((Bool!, [HeartRateDataRecord], NSError!) -> Void)!) {
+        
+        let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
+        
+        let limit = 0
+        
+        //sortDescriptor will return the samples in descending order
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        let sampleQuery = HKSampleQuery(sampleType: sampleType, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor]){ (sampleQuery, results, error) -> Void in
+            //println("RESULTS: \(results.count)")
+            
+            var heartRateDataRecords = [HeartRateDataRecord]()
+            
+            
+            
+            if let queryError = error {
+                completion(nil, [], error)
+                return;
+            }
+            
+            if (results.isEmpty) {
+                completion(nil, [], nil)
+            }
+            var count: Double = 0
+            
+            
+            for result in results as! [HKQuantitySample]
+            {
+//                println(result)
+                var dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: result.startDate, endDate: result.endDate)
+                dataRecord.heartRateMonitorReading = result.quantity.doubleValueForUnit(HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()))
+                dataRecord.state = HeartRateDataState.HRMData
+                heartRateDataRecords.append(dataRecord)
+                
+                
+                
+            }
+            
+            
+                
+            completion(true,heartRateDataRecords,nil)
+                
+            
+            
+        }
+        
+        self.healthKitStore.executeQuery(sampleQuery)
+        
+        
+    }
     
     func getLastEntryFromToday(sampleType: HKSampleType, startDate: NSDate, completion: ((lastDate: NSDate!, error: NSError!) -> Void)!){
         
