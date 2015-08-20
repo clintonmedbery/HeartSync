@@ -263,7 +263,7 @@ class HealthHandler {
             {
 //                println(result)
                 var dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: result.startDate, endDate: result.endDate)
-                dataRecord.heartRateMonitorReading = result.quantity.doubleValueForUnit(HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()))
+                dataRecord.bpm = result.quantity.doubleValueForUnit(HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()))
                 dataRecord.state = HeartRateDataState.HRMData
                 heartRateDataRecords.append(dataRecord)
                 

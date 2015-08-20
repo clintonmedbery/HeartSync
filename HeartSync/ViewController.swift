@@ -20,10 +20,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var authorizeButton: UIButton!
     @IBOutlet weak var pushDataButton: UIButton!
     @IBOutlet weak var swapDataButton: UIButton!
-    
+    @IBOutlet weak var dataSyncSwitch: UISwitch!
     @IBOutlet weak var statusLabel: UILabel!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var dataSyncOn: Bool?
     
     //Object that handles the HealthKit Communication and Data
     var healthHandler: HealthHandler = HealthHandler()
@@ -43,7 +45,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        dataSyncOn = true
+        dataSyncSwitch.on = true
+        dataSyncSwitch.addTarget(self, action: Selector("switchIsChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         //Hide the activity indicator on start
         self.activityIndicator.hidden = true
         
@@ -99,6 +103,9 @@ class ViewController: UIViewController {
             }
             
             if(success == true) {
+                
+                
+                
                 self.addMissingData(75.0, completion: { (result:Bool, error:NSError!) -> Void in
                     
                     if(result == true){
@@ -110,6 +117,11 @@ class ViewController: UIViewController {
                         
                     }
                 })
+                
+                
+                
+                
+                
             }
 
         }
@@ -172,7 +184,18 @@ class ViewController: UIViewController {
                 
                 if(result == false){
                     println(false)
-                    self.healthHandler.writeHeartRateSample(heartRate, startDate: startDate!, endDate: endDate!, completion: { (success, error) -> Void in
+                    
+                    let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
+                    let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
+                    
+                    var newHeartRate = heartRate
+                    
+                    if(hour <= 8 || hour >= 23){
+                        newHeartRate = heartRate - 5.0
+                        
+                    }
+                    
+                    self.healthHandler.writeHeartRateSample(newHeartRate, startDate: startDate!, endDate: endDate!, completion: { (success, error) -> Void in
                         
                         if(startDate! == lastDate){
                             println("FINISHED")
@@ -185,9 +208,9 @@ class ViewController: UIViewController {
                             completion(result: true, error: nil)
                         }
                     })
+
+                    
                 }
-                
-                
                 
                 
 
@@ -281,7 +304,16 @@ class ViewController: UIViewController {
                         
                     } else {
                         
-                        self.healthHandler.writeHeartRateSample(heartRate, startDate: entryStartDate!, endDate: entryEndDate!, completion: { (success, error) -> Void in
+                        let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: entryStartDate!)
+                        
+                        var newHeartRate = heartRate
+                        
+                        if(hour <= 8 || hour >= 23){
+                            newHeartRate = heartRate - 5.0
+                            
+                        }
+                        
+                        self.healthHandler.writeHeartRateSample(newHeartRate, startDate: entryStartDate!, endDate: entryEndDate!, completion: { (success, error) -> Void in
                             
                             if(entryEndDate! == lastDate){
                                 println("FINISHED")
@@ -313,8 +345,10 @@ class ViewController: UIViewController {
 
     @IBAction func startChecking(sender: AnyObject) {
         
+        println(dataSyncOn)
         operationQueue = NSOperationQueue()
         operationQueue?.name = "sync_Queue"
+        completeRecords.removeAll(keepCapacity: false)
         
         
         
@@ -334,67 +368,116 @@ class ViewController: UIViewController {
             }
             if(success == true){
                 for record in hkDataRecords {
+                    //record.printCSVRecord()
                     heartRateMonitorRecords.append(record)
-                    record.printRecord()
                 }
-            }
-        }
-        
-        var pacemakerDataRecords = self.heartBeatDataHandler.getAllTestData() as [HeartRateDataRecord]
-        
-        for hrmRecord in heartRateMonitorRecords {
-            for pacemakerRecord in pacemakerDataRecords {
-                if(hrmRecord.startDate == pacemakerRecord.startDate && hrmRecord.endDate == pacemakerRecord.endDate){
+                var pacemakerDataRecords = self.heartBeatDataHandler.getAllTestData() as [HeartRateDataRecord]
+                
+                
+                
+                if(self.dataSyncOn == true) {
                     
-                    //Add sync here
-                    
-                    
-                    
-                }
-            }
-        }
-        
-        
-        
-        
-//        for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
-//            
-//            var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-//            var endDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
-//            let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
-//            let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
-//
-//            var heartRateDataRecord: HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
-//            
-//            let syncOperation = NSBlockOperation { () -> Void in
-//                
-//            
-//                let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
-//            
-//                self.healthHandler.readHeartRateSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (didRecieve, count, error) -> Void in
-//                
-//                    println(count)
-//                    
-//                    
-//                })
-//                
-//            }
-//            syncOperation.completionBlock = {
-//                println("COMPLETE")
-//            }
-//            
-//            
-//            syncOperation.queuePriority = NSOperationQueuePriority.High
-//            operationQueue?.addOperation(syncOperation)
-//            
-//            
-//        }
+                    var pacemakerIndexCount: Int = pacemakerDataRecords.count - 1
+                    var hrmIndexCount: Int = heartRateMonitorRecords.count - 1
 
-        
-        
-        
-        
-        
+                    
+                    for (var i = 0; i < heartRateMonitorRecords.count; i++) {
+                        
+                        
+                        for (var j = 0; j <= pacemakerIndexCount; j++) {
+                            
+                            println(j)
+                            
+                            if(heartRateMonitorRecords[i].startDate!.basicDateComparison(pacemakerDataRecords[j].startDate!) && heartRateMonitorRecords[i].endDate!.basicDateComparison(pacemakerDataRecords[j].endDate!)){
+                                
+                                
+                                
+                                
+                                //Add sync here
+                                if(heartRateMonitorRecords[i].bpm! == pacemakerDataRecords[j].bpm!) {
+                                    
+                                    
+                                    var newDataRecord = HeartRateDataRecord(startDate: heartRateMonitorRecords[i].startDate!, endDate: heartRateMonitorRecords[i].endDate!)
+                                    newDataRecord.bpm = heartRateMonitorRecords[i].bpm!
+                                    newDataRecord.state = HeartRateDataState.ReadyForUpload
+                                    newDataRecord.outcome = HeartRateDataOutcome.Both
+                                    
+                                    self.completeRecords.append(newDataRecord)
+                                    
+                                    heartRateMonitorRecords[i].state = HeartRateDataState.Compared
+                                    pacemakerDataRecords[j].state = HeartRateDataState.Compared
+                                    heartRateMonitorRecords.removeAtIndex(i)
+                                    i = i - 1
+                                    pacemakerDataRecords.removeAtIndex(j)
+                                    j = j - 1
+                                    
+                                    pacemakerIndexCount = pacemakerDataRecords.count - 1
+                                    hrmIndexCount = heartRateMonitorRecords.count - 1
+
+                                    
+                                    
+                                    
+                                }
+                                
+                            }
+                            
+                            
+                        }
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    for hrmRecord in heartRateMonitorRecords {
+                        if(hrmRecord.state != HeartRateDataState.Compared) {
+                            hrmRecord.outcome = HeartRateDataOutcome.HeartRateMonitor
+                            hrmRecord.state = HeartRateDataState.ReadyForUpload
+                            self.completeRecords.append(hrmRecord)
+                        }
+                    }
+                    
+                    
+                    heartRateMonitorRecords.removeAll(keepCapacity: false)
+                    
+                    for pacemakerDataRecord in pacemakerDataRecords {
+                        if (pacemakerDataRecord.state != HeartRateDataState.Compared) {
+                            
+                            pacemakerDataRecord.outcome = HeartRateDataOutcome.Pacemaker
+                            pacemakerDataRecord.state = HeartRateDataState.ReadyForUpload
+                            self.completeRecords.append(pacemakerDataRecord)
+                        }
+                    }
+                    pacemakerDataRecords.removeAll(keepCapacity: false)
+                    
+                    
+                    
+                    
+                    
+                } else {
+                    
+                }
+                
+                for hrmRecord in heartRateMonitorRecords {
+                    hrmRecord.outcome = HeartRateDataOutcome.HeartRateMonitor
+                    hrmRecord.state = HeartRateDataState.ReadyForUpload
+                    self.completeRecords.append(hrmRecord)
+                }
+                
+                for pacemakerDataRecord in pacemakerDataRecords {
+                    pacemakerDataRecord.outcome = HeartRateDataOutcome.Pacemaker
+                    pacemakerDataRecord.state = HeartRateDataState.ReadyForUpload
+                    self.completeRecords.append(pacemakerDataRecord)
+                }
+                
+                println("CHECKING COMPLETE")
+
+                
+                
+            }
+        }
         
         
     }
@@ -418,9 +501,7 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func pushData(sender: AnyObject) {
-        
-    }
+
     
     @IBAction func swapHRMData(sender: AnyObject) {
         
@@ -493,6 +574,39 @@ class ViewController: UIViewController {
             }
         }
     
+    }
+    
+    
+    @IBAction func pushData(sender: AnyObject) {
+        if (self.completeRecords.isEmpty) {
+            println("COMPLETED RECORDS IS EMPTY")
+            statusLabel.text = "No Data to Push"
+            return
+        } else {
+            println("Data Type, Start Date, Start Time, End Date, End Time, Both, HRM, Pacemaker")
+            for record in completeRecords {
+                record.printCSVRecord()
+            }
+        }
+        
+        
+        
+    }
+
+  
+    func switchIsChanged(mySwitch: UISwitch) {
+        if mySwitch.on {
+            
+            dataSyncOn = false
+            
+        } else {
+            
+            dataSyncOn = true
+            
+        }
+        
+        
+        
     }
     
 }

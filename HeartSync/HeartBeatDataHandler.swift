@@ -156,7 +156,7 @@ class HeartBeatDataHandler {
                 
                 
                 var dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
-                dataRecord.pacemakerReading = Double(entity.bpm)
+                dataRecord.bpm = Double(entity.bpm)
                 dataRecord.state = HeartRateDataState.PMData
                 heartRateDataRecords.append(dataRecord)
 
