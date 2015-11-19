@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import HealthKit
 
-enum HeartRateDataState : Printable {
+enum HeartRateDataState : CustomStringConvertible {
     case New, HRMData, PMData, ReadyForUpload, Compared, Uploaded
     var description : String {
         switch self {
@@ -31,7 +31,7 @@ enum HeartRateDataState : Printable {
     }
 }
 
-enum HeartRateDataOutcome :Printable {
+enum HeartRateDataOutcome :CustomStringConvertible {
     case NotDetermined, HeartRateMonitor, Pacemaker, Both
     var description: String {
         switch self {
@@ -66,16 +66,16 @@ class HeartRateDataRecord {
     func printRecord(){
         
         if(self.state == HeartRateDataState.PMData) {
-            println("SOURCE: \(state) PM BPM: \(self.bpm!) OUTCOME: \(outcome)")
-            println("START DATE: \(startDate!) END DATE: \(endDate)")
+            print("SOURCE: \(state) PM BPM: \(self.bpm!) OUTCOME: \(outcome)")
+            print("START DATE: \(startDate!) END DATE: \(endDate)")
 
         } else if (self.state == HeartRateDataState.HRMData) {
-            println("SOURCE: \(state) HRM BPM: \(self.bpm!) OUTCOME: \(outcome)")
-            println("START DATE: \(startDate!) END DATE: \(endDate)")
+            print("SOURCE: \(state) HRM BPM: \(self.bpm!) OUTCOME: \(outcome)")
+            print("START DATE: \(startDate!) END DATE: \(endDate)")
 
         } else if (self.state == HeartRateDataState.Compared) {
-            println("SOURCE: \(state) BPM: \(self.bpm!) OUTCOME: \(outcome)")
-            println("START DATE: \(startDate!) END DATE: \(endDate)")
+            print("SOURCE: \(state) BPM: \(self.bpm!) OUTCOME: \(outcome)")
+            print("START DATE: \(startDate!) END DATE: \(endDate)")
 
         }
         
@@ -84,13 +84,13 @@ class HeartRateDataRecord {
     func printCSVRecord() {
         switch self.outcome {
         case .Both:
-            println("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()), \(self.bpm!),,")
+            print("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()), \(self.bpm!),,")
         case .HeartRateMonitor:
-             println("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()),,\(self.bpm!),")
+             print("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()),,\(self.bpm!),")
         case .Pacemaker:
-            println("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()),,,\(self.bpm!)")
+            print("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()),,,\(self.bpm!)")
         case .NotDetermined:
-            println("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()),,,")
+            print("\(self.outcome.description), \(self.startDate!.getCSVDescription()), \(self.endDate!.getCSVDescription()),,,")
         }
         
         
@@ -126,9 +126,9 @@ class DataComparer: NSOperation{
         //Operations
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         
-        self.healthHandler.readHeartRateSampleFromDates(sampleType, startDate: heartRateDataRecord.startDate!, endDate: heartRateDataRecord.endDate!, completion: { (didRecieve, count, error) -> Void in
+        self.healthHandler.readHeartRateSampleFromDates(sampleType!, startDate: heartRateDataRecord.startDate!, endDate: heartRateDataRecord.endDate!, completion: { (didRecieve, count, error) -> Void in
             
-            println(count)
+            print(count)
             
         })
         

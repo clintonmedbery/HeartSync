@@ -20,24 +20,24 @@ class HeartBeatDataHandler {
     
     func loadPacemakerData(completion: (result: Bool, error: NSError!) -> Void) {
         
-        println("Started")
+        print("Started")
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext!
         
         let heartBeatEntity = NSEntityDescription.entityForName("HeartBeatEntity", inManagedObjectContext: managedContext)
         
-        var date :NSDate? = NSDate().beginningOfDay()
+        let date :NSDate? = NSDate().beginningOfDay()
         let calendar = NSCalendar.currentCalendar()
         var comparisonDate: NSDate? = date
         for(var idNum = 1; idNum <= 1; idNum++){
             for (var index = 0; index <= 1439; index++ ) {
                 
-                var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-                var endDate: NSDate? =  calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
+                let startDate: NSDate? = calendar.dateByAddingUnit(.Minute, value: index, toDate: date!, options: [])
+                let endDate: NSDate? =  calendar.dateByAddingUnit(.Second, value: 59, toDate: startDate!, options: [])
                 
-                let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
-                let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
+                let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: startDate!)
+                let minute = NSCalendar.currentCalendar().component(.Minute, fromDate: startDate!)
                 
                 if(self.checkForStaticHeartRateData(idNum, hour: hour, minute: minute) == false){
 //                    println()
@@ -68,29 +68,33 @@ class HeartBeatDataHandler {
                     
                     
                     var error: NSError?
-                    if !managedContext.save(&error) {
-                        println("Could not save \(error), \(error?.userInfo)")
+                    do {
+                        try managedContext.save()
+                    } catch let error as NSError {
+                        print("Could not save \(error), \(error.userInfo)")
                     }
                     
                     
                 } else {
-                    println()
-                    println("DATA ALREADY EXISTS")
-                    println("ID: \(idNum)")
-                    println("INDEX \(index)")
-                    println("TIME \(startDate)")
-                    println("HOUR: \(hour)")
-                    println("MINUTE: \(minute)")
+                    print("")
+                    print("DATA ALREADY EXISTS")
+                    print("ID: \(idNum)")
+                    print("INDEX \(index)")
+                    print("TIME \(startDate)")
+                    print("HOUR: \(hour)")
+                    print("MINUTE: \(minute)")
                 }
                 
             }
         }
         
         var error: NSError?
-        if !managedContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo)")
         }
-        println("Finished")
+        print("Finished")
         completion(result: true, error: nil)
     }
     
@@ -100,7 +104,7 @@ class HeartBeatDataHandler {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
         
-        let fetchedEntities = managedContext.executeFetchRequest(fetchRequest, error: nil) as! [HeartBeatEntity]
+        let fetchedEntities = (try! managedContext.executeFetchRequest(fetchRequest)) as! [HeartBeatEntity]
         
         if(fetchedEntities.isEmpty){
             return false
@@ -108,8 +112,8 @@ class HeartBeatDataHandler {
         
         for entity in fetchedEntities{
             
-            let retrievedHour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: entity.startDate)
-            let retrievedMinute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: entity.startDate)
+            let retrievedHour = NSCalendar.currentCalendar().component(.Hour, fromDate: entity.startDate)
+            let retrievedMinute = NSCalendar.currentCalendar().component(.Minute, fromDate: entity.startDate)
             
             if(heartRateID == entity.heartRateId && minute == retrievedMinute && hour == retrievedHour) {
                 
@@ -128,7 +132,7 @@ class HeartBeatDataHandler {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
         
-        let fetchedEntities = managedContext.executeFetchRequest(fetchRequest, error: nil) as! [HeartBeatEntity]
+        let fetchedEntities = (try! managedContext.executeFetchRequest(fetchRequest)) as! [HeartBeatEntity]
         
         if(fetchedEntities.isEmpty){
             return []
@@ -142,20 +146,20 @@ class HeartBeatDataHandler {
             
             if(entity.isTestData == true) {
                 let todayDate: NSDate = NSDate().beginningOfDay()
-                let startComponents = calendar.components(.CalendarUnitMinute | .CalendarUnitHour | .CalendarUnitSecond, fromDate: entity.startDate)
-                var startDate = calendar.dateByAddingUnit(.CalendarUnitHour, value: startComponents.hour, toDate: todayDate, options: nil)
-                startDate = calendar.dateByAddingUnit(.CalendarUnitMinute, value: startComponents.minute, toDate: startDate!, options: nil)
-                startDate = calendar.dateByAddingUnit(.CalendarUnitSecond, value: startComponents.second, toDate: startDate!, options: nil)
+                let startComponents = calendar.components([.Minute, .Hour, .Second], fromDate: entity.startDate)
+                var startDate = calendar.dateByAddingUnit(.Hour, value: startComponents.hour, toDate: todayDate, options: [])
+                startDate = calendar.dateByAddingUnit(.Minute, value: startComponents.minute, toDate: startDate!, options: [])
+                startDate = calendar.dateByAddingUnit(.Second, value: startComponents.second, toDate: startDate!, options: [])
                 
-                let endComponents = calendar.components(.CalendarUnitMinute | .CalendarUnitHour | .CalendarUnitSecond, fromDate: entity.endDate)
-                var endDate = calendar.dateByAddingUnit(.CalendarUnitHour, value: endComponents.hour, toDate: todayDate, options: nil)
-                endDate = calendar.dateByAddingUnit(.CalendarUnitMinute, value: endComponents.minute, toDate: endDate!, options: nil)
-                endDate = calendar.dateByAddingUnit(.CalendarUnitSecond, value: endComponents.second, toDate: endDate!, options: nil)
-                
-                
+                let endComponents = calendar.components([.Minute, .Hour, .Second], fromDate: entity.endDate)
+                var endDate = calendar.dateByAddingUnit(.Hour, value: endComponents.hour, toDate: todayDate, options: [])
+                endDate = calendar.dateByAddingUnit(.Minute, value: endComponents.minute, toDate: endDate!, options: [])
+                endDate = calendar.dateByAddingUnit(.Second, value: endComponents.second, toDate: endDate!, options: [])
                 
                 
-                var dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
+                
+                
+                let dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: startDate!, endDate: endDate!)
                 dataRecord.bpm = Double(entity.bpm)
                 dataRecord.state = HeartRateDataState.PMData
                 heartRateDataRecords.append(dataRecord)

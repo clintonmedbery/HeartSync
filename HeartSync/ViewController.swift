@@ -45,8 +45,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSyncOn = true
-        dataSyncSwitch.on = true
+        dataSyncOn = false
+        dataSyncSwitch.setOn(true, animated: false)
         dataSyncSwitch.addTarget(self, action: Selector("switchIsChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         //Hide the activity indicator on start
         self.activityIndicator.hidden = true
@@ -84,21 +84,21 @@ class ViewController: UIViewController {
             self.activityIndicator.hidden = false
         }
         
-        println("Start Animating")
+        print("Start Animating")
         
         var startDate :NSDate? = NSDate().beginningOfDay()
         let calendar = NSCalendar.currentCalendar()
 
-        var endDate: NSDate? = calendar.dateByAddingUnit(NSCalendarUnit.CalendarUnitDay, value: 1, toDate: startDate!, options: nil)
+        var endDate: NSDate? = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: 1, toDate: startDate!, options: [])
         
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
 
-        self.healthHandler.deleteSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!) { (success, error) -> Void in
-            println(success)
-            println(endDate)
+        self.healthHandler.deleteSampleFromDates(sampleType!, startDate: startDate!, endDate: endDate!) { (success, error) -> Void in
+            print(success)
+            print(endDate)
 
             if let queryError = error {
-                println("ERROR: \(error!)")
+                print("ERROR: \(error!)")
                 
             }
             
@@ -109,7 +109,7 @@ class ViewController: UIViewController {
                 self.addMissingData(75.0, completion: { (result:Bool, error:NSError!) -> Void in
                     
                     if(result == true){
-                        println("FINISHED STORING HRM DATA")
+                        print("FINISHED STORING HRM DATA")
                         self.isHRMDataLoaded = true
                         self.isHRMDataControl = true
                         self.statusLabel.text = "Data Loaded (Control)"
@@ -145,34 +145,34 @@ class ViewController: UIViewController {
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         for (var index = 0; index <= MINUTES_IN_DAY; index++ ) {
             
-            var startDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: date!, options: nil)
-            var endDate: NSDate? =  calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: startDate!, options: nil)
+            var startDate: NSDate? = calendar.dateByAddingUnit(.Minute, value: index, toDate: date!, options: [])
+            var endDate: NSDate? =  calendar.dateByAddingUnit(.Second, value: 59, toDate: startDate!, options: [])
             
 
-            healthHandler.checkSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!, completion: { (result: Bool!, error: NSError!) -> Void in
+            healthHandler.checkSampleFromDates(sampleType!, startDate: startDate!, endDate: endDate!, completion: { (result: Bool!, error: NSError!) -> Void in
                 //println("RESULT: \(result)")
                
-                var lastDate:NSDate? = calendar.dateByAddingUnit(.CalendarUnitDay, value: 1, toDate: date!, options: nil)
+                var lastDate:NSDate? = calendar.dateByAddingUnit(.Day, value: 1, toDate: date!, options: [])
 
                 if let queryError = error {
-                    println("ERROR: \(error!)")
+                    print("ERROR: \(error!)")
 
                 }
 
                 if(result == true){
-                    println("START DATE")
-                    println(startDate!)
-                    println("END DATE")
-                    println(endDate!)
-                    println("RESULT TRUE")
-                    println(startDate!)
-                    let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
-                    println(hour)
+                    print("START DATE")
+                    print(startDate!)
+                    print("END DATE")
+                    print(endDate!)
+                    print("RESULT TRUE")
+                    print(startDate!)
+                    let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: startDate!)
+                    print(hour)
                     
                     if(startDate! == lastDate){
-                        println("FINISHED")
-                        println(startDate!)
-                        println(lastDate!)
+                        print("FINISHED")
+                        print(startDate!)
+                        print(lastDate!)
                         dispatch_async(dispatch_get_main_queue()) {
                             self.activityIndicatorOff()
                             
@@ -183,10 +183,10 @@ class ViewController: UIViewController {
                 }
                 
                 if(result == false){
-                    println(false)
+                    print(false)
                     
-                    let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: startDate!)
-                    let minute = NSCalendar.currentCalendar().component(.CalendarUnitMinute, fromDate: startDate!)
+                    let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: startDate!)
+                    let minute = NSCalendar.currentCalendar().component(.Minute, fromDate: startDate!)
                     
                     var newHeartRate = heartRate
                     
@@ -198,9 +198,9 @@ class ViewController: UIViewController {
                     self.healthHandler.writeHeartRateSample(newHeartRate, startDate: startDate!, endDate: endDate!, completion: { (success, error) -> Void in
                         
                         if(startDate! == lastDate){
-                            println("FINISHED")
-                            println(startDate!)
-                            println(lastDate!)
+                            print("FINISHED")
+                            print(startDate!)
+                            print(lastDate!)
                             dispatch_async(dispatch_get_main_queue()) {
                                 self.activityIndicatorOff()
                                 
@@ -228,42 +228,42 @@ class ViewController: UIViewController {
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
         
         let date = NSDate()
-        let startComponents = calendar.components(.CalendarUnitMinute | .CalendarUnitHour, fromDate: firstDate)
-        let endComponents = calendar.components(.CalendarUnitMinute | .CalendarUnitHour, fromDate: lastDate)
+        let startComponents = calendar.components([.Minute, .Hour], fromDate: firstDate)
+        let endComponents = calendar.components([.Minute, .Hour], fromDate: lastDate)
         
         
         //DOES NOT TAKE DAYS INTO ACCOUNT
         var numOfMinutes = endComponents.minute - startComponents.minute + ((endComponents.hour - startComponents.hour) * 60)
-        println("MINUTES DIFFERENCE")
-        println(numOfMinutes)
+        print("MINUTES DIFFERENCE")
+        print(numOfMinutes)
 
         for (var index = 0; index <= numOfMinutes; index++ ) {
             
-            var entryStartDate: NSDate? = calendar.dateByAddingUnit(.CalendarUnitMinute, value: index, toDate: firstDate, options: nil)
-            var entryEndDate: NSDate? =  calendar.dateByAddingUnit(.CalendarUnitSecond, value: 59, toDate: entryStartDate!, options: nil)
+            var entryStartDate: NSDate? = calendar.dateByAddingUnit(.Minute, value: index, toDate: firstDate, options: [])
+            var entryEndDate: NSDate? =  calendar.dateByAddingUnit(.Second, value: 59, toDate: entryStartDate!, options: [])
             
             
-            healthHandler.checkSampleFromDates(sampleType, startDate: entryStartDate!, endDate: entryEndDate!, completion: { (result: Bool!, error: NSError!) -> Void in
+            healthHandler.checkSampleFromDates(sampleType!, startDate: entryStartDate!, endDate: entryEndDate!, completion: { (result: Bool!, error: NSError!) -> Void in
                 //println("RESULT: \(result)")
                 
                 
                 if let queryError = error {
-                    println("ERROR: \(error!)")
+                    print("ERROR: \(error!)")
                     
                 }
                 
                 if(result == true){
-                    println("START DATE")
-                    println(entryStartDate!)
-                    println("END DATE")
-                    println(entryEndDate!)
-                    println("RESULT TRUE")
+                    print("START DATE")
+                    print(entryStartDate!)
+                    print("END DATE")
+                    print(entryEndDate!)
+                    print("RESULT TRUE")
                 
                 
                     if(entryStartDate! == lastDate){
-                        println("FINISHED")
-                        println(entryStartDate!)
-                        println(lastDate)
+                        print("FINISHED")
+                        print(entryStartDate!)
+                        print(lastDate)
                         dispatch_async(dispatch_get_main_queue()) {
                             self.activityIndicatorOff()
                             
@@ -283,12 +283,12 @@ class ViewController: UIViewController {
                         
                         self.healthHandler.writeHeartRateSample(Double(newHeartRate), startDate: entryStartDate!, endDate: entryEndDate!, completion: { (success, error) -> Void in
                             
-                            println("Start Date: \(entryEndDate!)  Last Date: \(lastDate)")
+                            print("Start Date: \(entryEndDate!)  Last Date: \(lastDate)")
                             
                             if(entryEndDate! == lastDate){
-                                println("FINISHED")
-                                println(entryStartDate!)
-                                println(lastDate)
+                                print("FINISHED")
+                                print(entryStartDate!)
+                                print(lastDate)
                                 self.isHRMDataControl = false
                                 
                                 dispatch_async(dispatch_get_main_queue()) {
@@ -304,7 +304,7 @@ class ViewController: UIViewController {
                         
                     } else {
                         
-                        let hour = NSCalendar.currentCalendar().component(.CalendarUnitHour, fromDate: entryStartDate!)
+                        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: entryStartDate!)
                         
                         var newHeartRate = heartRate
                         
@@ -316,9 +316,9 @@ class ViewController: UIViewController {
                         self.healthHandler.writeHeartRateSample(newHeartRate, startDate: entryStartDate!, endDate: entryEndDate!, completion: { (success, error) -> Void in
                             
                             if(entryEndDate! == lastDate){
-                                println("FINISHED")
-                                println(entryStartDate!)
-                                println(lastDate)
+                                print("FINISHED")
+                                print(entryStartDate!)
+                                print(lastDate)
                                 self.isHRMDataControl = true
 
                                 dispatch_async(dispatch_get_main_queue()) {
@@ -345,7 +345,7 @@ class ViewController: UIViewController {
 
     @IBAction func startChecking(sender: AnyObject) {
         
-        println(dataSyncOn)
+        print(dataSyncOn)
         operationQueue = NSOperationQueue()
         operationQueue?.name = "sync_Queue"
         completeRecords.removeAll(keepCapacity: false)
@@ -361,9 +361,9 @@ class ViewController: UIViewController {
         var heartRateMonitorRecords = [HeartRateDataRecord]()
 
         
-        self.healthHandler.returnHeartRateSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!) { (success, hkDataRecords, error) -> Void in
+        self.healthHandler.returnHeartRateSampleFromDates(sampleType!, startDate: startDate!, endDate: endDate!) { (success, hkDataRecords, error) -> Void in
             if(success == false){
-                println("No Data")
+                print("No Data")
                 
             }
             if(success == true){
@@ -386,7 +386,7 @@ class ViewController: UIViewController {
                         
                         for (var j = 0; j <= pacemakerIndexCount; j++) {
                             
-                            println(j)
+                            print(j)
                             
                             if(heartRateMonitorRecords[i].startDate!.basicDateComparison(pacemakerDataRecords[j].startDate!) && heartRateMonitorRecords[i].endDate!.basicDateComparison(pacemakerDataRecords[j].endDate!)){
                                 
@@ -472,7 +472,7 @@ class ViewController: UIViewController {
                     self.completeRecords.append(pacemakerDataRecord)
                 }
                 
-                println("CHECKING COMPLETE")
+                print("CHECKING COMPLETE")
 
                 
                 
@@ -520,21 +520,21 @@ class ViewController: UIViewController {
         var hourOfDataSwap: Int = 17
         
         var startDate :NSDate? = NSDate().beginningOfDay()
-        startDate = calendar.dateByAddingUnit(NSCalendarUnit.CalendarUnitHour, value: hourOfDataSwap, toDate: startDate!, options: nil)
+        startDate = calendar.dateByAddingUnit(NSCalendarUnit.Hour, value: hourOfDataSwap, toDate: startDate!, options: [])
         
 
         
-        var endDate: NSDate? = calendar.dateByAddingUnit(NSCalendarUnit.CalendarUnitHour, value: 1, toDate: startDate!, options: nil)
+        var endDate: NSDate? = calendar.dateByAddingUnit(NSCalendarUnit.Hour, value: 1, toDate: startDate!, options: [])
         
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
 
         
-        self.healthHandler.deleteSampleFromDates(sampleType, startDate: startDate!, endDate: endDate!) { (success, error) -> Void in
-            println(success)
-            println(endDate)
+        self.healthHandler.deleteSampleFromDates(sampleType!, startDate: startDate!, endDate: endDate!) { (success, error) -> Void in
+            print(success)
+            print(endDate)
             
             if let queryError = error {
-                println("ERROR: \(error!)")
+                print("ERROR: \(error!)")
                 
             }
             
@@ -542,7 +542,7 @@ class ViewController: UIViewController {
                 if(self.isHRMDataControl != nil) {
                     self.swapHRMData(75.0, isRandom: self.isHRMDataControl!, firstDate: startDate!, lastDate: endDate!, completion: { (result, error) -> Void in
                         
-                        println("FINISHED SWAPPING HRM DATA")
+                        print("FINISHED SWAPPING HRM DATA")
                         
                     })
                 } else {
@@ -560,16 +560,16 @@ class ViewController: UIViewController {
     @IBAction func authorizeHealthKit(sender: AnyObject) {
         healthHandler.authorizeHealthKit { (authorized,  error) -> Void in
             if authorized {
-                println("HealthKit authorization received.")
+                print("HealthKit authorization received.")
                 self.authorizeButton.enabled = false
                 self.authorizeButton.alpha = 0.4
             }
             else
             {
-                println("HealthKit authorization denied!")
+                print("HealthKit authorization denied!")
                 
                 if error != nil {
-                    println("\(error)")
+                    print("\(error)")
                 }
             }
         }
@@ -579,11 +579,11 @@ class ViewController: UIViewController {
     
     @IBAction func pushData(sender: AnyObject) {
         if (self.completeRecords.isEmpty) {
-            println("COMPLETED RECORDS IS EMPTY")
+            print("COMPLETED RECORDS IS EMPTY")
             statusLabel.text = "No Data to Push"
             return
         } else {
-            println("Data Type, Start Date, Start Time, End Date, End Time, Both, HRM, Pacemaker")
+            print("Data Type, Start Date, Start Time, End Date, End Time, Both, HRM, Pacemaker")
             for record in completeRecords {
                 record.printCSVRecord()
             }

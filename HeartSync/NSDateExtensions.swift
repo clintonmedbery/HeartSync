@@ -19,9 +19,9 @@ extension NSDate {
     }
     
     func endOfDay() -> NSDate {
-        var components = NSDateComponents()
+        let components = NSDateComponents()
         components.day = 1
-        var date = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self.beginningOfDay(), options: .allZeros)!
+        var date = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self.beginningOfDay(), options: [])!
         date = date.dateByAddingTimeInterval(-1)
         return date
     }
@@ -29,7 +29,7 @@ extension NSDate {
     func getCSVDescription() -> String {
         let calendar = NSCalendar.currentCalendar()
 
-        let components = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitMinute | .CalendarUnitHour | .CalendarUnitSecond, fromDate: self)
+        let components = calendar.components([.Year, .Month, .Day, .Minute, .Hour, .Second], fromDate: self)
         
         var minuteString:String = String(components.minute)
         
@@ -49,16 +49,16 @@ extension NSDate {
             secondString = "0" + secondString
         }
         
-        var csvString = "\(components.month)/\(components.day)/\(components.year),\(hourString):\(minuteString):\(secondString)"
+        let csvString = "\(components.month)/\(components.day)/\(components.year),\(hourString):\(minuteString):\(secondString)"
         return csvString
     }
     
     func basicDateComparison(otherDate: NSDate) -> Bool {
         let calendar = NSCalendar.currentCalendar()
 
-        let selfComponents = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitMinute | .CalendarUnitHour | .CalendarUnitSecond, fromDate: self)
+        let selfComponents = calendar.components([.Year, .Month, .Day, .Minute, .Hour, .Second], fromDate: self)
         
-        let otherComponents = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitMinute | .CalendarUnitHour | .CalendarUnitSecond, fromDate: otherDate)
+        let otherComponents = calendar.components([.Year, .Month, .Day, .Minute, .Hour, .Second], fromDate: otherDate)
         
         
         if(selfComponents == otherComponents){
@@ -71,15 +71,15 @@ extension NSDate {
     func getHour() -> Int {
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(.CalendarUnitHour, fromDate: self)
-        println(components.hour)
+        let components = calendar.components(.Hour, fromDate: self)
+        print(components.hour)
         return components.hour
     }
     
     func getSeconds() -> Int {
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(.CalendarUnitSecond, fromDate: self)
+        let components = calendar.components(.Second, fromDate: self)
         
         return components.second
     }
@@ -87,8 +87,8 @@ extension NSDate {
     func getMinute() -> Int {
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(.CalendarUnitMinute, fromDate: self)
-        println(components.minute)
+        let components = calendar.components(.Minute, fromDate: self)
+        print(components.minute)
         return components.minute
     }
     

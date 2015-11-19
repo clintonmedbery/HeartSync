@@ -22,14 +22,14 @@ class HealthHandler {
         // 1. Set the types you want to read from HK Store
         let healthKitTypesToRead = NSSet(array:[
             
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!
             
             ])
         
         // 2. Set the types you want to write to HK Store
         let healthKitTypesToWrite = NSSet(array:[
             
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)
+            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!
 
             
             ])
@@ -46,7 +46,7 @@ class HealthHandler {
         }
         
         // 4.  Request HealthKit authorization
-        healthKitStore.requestAuthorizationToShareTypes(healthKitTypesToWrite as Set<NSObject>, readTypes: healthKitTypesToRead as Set<NSObject>) { (success, error) -> Void in
+        healthKitStore.requestAuthorizationToShareTypes(healthKitTypesToWrite as? Set<HKSampleType>, readTypes: healthKitTypesToWrite as? Set<HKSampleType>) { (success, error) -> Void in
             
             if( completion != nil )
             {
@@ -58,7 +58,7 @@ class HealthHandler {
     func readRecentSample(sampleType: HKSampleType, completion: ((HKSample!, NSError!) -> Void)!) {
         
         //Build the Predicate
-        let past = NSDate.distantPast() as! NSDate
+        let past = NSDate.distantPast() 
         let now = NSDate()
         let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(past, endDate: now, options: .None)
         
@@ -74,7 +74,7 @@ class HealthHandler {
                 return;
             }
             
-            let mostRecentSample = results.first as? HKQuantitySample
+            let mostRecentSample = results!.first as? HKQuantitySample
             
             if completion != nil {
                 completion(mostRecentSample,nil)
@@ -105,7 +105,7 @@ class HealthHandler {
                 return;
             }
             
-            let mostRecentSample = results.first as? HKQuantitySample
+            let mostRecentSample = results!.first as? HKQuantitySample
             
             if completion != nil {
                 completion(mostRecentSample,nil)
@@ -118,7 +118,7 @@ class HealthHandler {
     }
     
     func readStepSampleFromDates(sampleType: HKSampleType, startDate: NSDate, endDate: NSDate, completion: ((Int!, NSError!) -> Void)!) {
-        println("READ")
+        print("READ")
         
         let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
         
@@ -134,8 +134,8 @@ class HealthHandler {
                 return;
             }
             var steps: Double = 0
-            println(results.last)
-            println(results.first)
+            print(results!.last)
+            print(results!.first)
             
             for result in results as! [HKQuantitySample]
             {
@@ -175,7 +175,7 @@ class HealthHandler {
                 return;
             }
             
-            let mostRecentSample = results.first as? HKQuantitySample
+            let mostRecentSample = results!.first as? HKQuantitySample
             
             if completion != nil {
                 completion(mostRecentSample,nil)
@@ -204,7 +204,7 @@ class HealthHandler {
                 return;
             }
             
-            if (results.isEmpty) {
+            if (results!.isEmpty) {
                 completion(nil, 0, nil)
             }
             var count: Double = 0
@@ -212,7 +212,7 @@ class HealthHandler {
             
             for result in results as! [HKQuantitySample]
             {
-                println(result)
+                print(result)
                 
                 
                 count += result.quantity.doubleValueForUnit(HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()))
@@ -253,7 +253,7 @@ class HealthHandler {
                 return;
             }
             
-            if (results.isEmpty) {
+            if (results!.isEmpty) {
                 completion(nil, [], nil)
             }
             var count: Double = 0
@@ -262,7 +262,7 @@ class HealthHandler {
             for result in results as! [HKQuantitySample]
             {
 //                println(result)
-                var dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: result.startDate, endDate: result.endDate)
+                let dataRecord:HeartRateDataRecord = HeartRateDataRecord(startDate: result.startDate, endDate: result.endDate)
                 dataRecord.bpm = result.quantity.doubleValueForUnit(HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()))
                 dataRecord.state = HeartRateDataState.HRMData
                 heartRateDataRecords.append(dataRecord)
@@ -288,8 +288,8 @@ class HealthHandler {
         
         //Build the Predicate
         let endDate = NSDate()
-        println(startDate)
-        println(endDate)
+        print(startDate)
+        print(endDate)
 
         
         let mostRecentPredicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
@@ -307,7 +307,7 @@ class HealthHandler {
                 return;
             }
             
-            let mostRecentSample = results.first as? HKQuantitySample
+            let mostRecentSample = results!.first as? HKQuantitySample
             //println(results.first)
             if completion != nil {
                 completion(lastDate: mostRecentSample?.startDate, error: nil)
@@ -323,15 +323,15 @@ class HealthHandler {
         let bpmQuantity = HKQuantity(unit: heartRateUnit, doubleValue: bpm)
         
         
-        let bpmSample = HKQuantitySample(type: bpmType, quantity: bpmQuantity, startDate: startDate, endDate: endDate)
+        let bpmSample = HKQuantitySample(type: bpmType!, quantity: bpmQuantity, startDate: startDate, endDate: endDate)
         
         self.healthKitStore.saveObject(bpmSample, withCompletion: { (success, error) -> Void in
             if( error != nil ) {
-                println("Error saving BPM sample: \(error.localizedDescription)")
+                print("Error saving BPM sample: \(error!.localizedDescription)")
                 completion(success: false, error: error)
 
             } else {
-                println("BPM sample saved successfully! Start Date: \(startDate)  BPM: \(bpm)")
+                print("BPM sample saved successfully! Start Date: \(startDate)  BPM: \(bpm)")
                 completion(success: true, error: nil)
             }
         })
@@ -356,13 +356,13 @@ class HealthHandler {
                 return;
             }
             
-            if(results.count > 0){
+            if(results!.count > 0){
                 //println("SENDING TRUE")
 
                 completion(true,nil)
             }
             
-            if (results.count <= 0) {
+            if (results!.count <= 0) {
                 //println("SENDING FALSE")
 
                 completion(false,nil)
@@ -394,20 +394,20 @@ class HealthHandler {
                 return;
             }
             
-            if(results.count > 0){
+            if(results!.count > 0){
                 //println("SENDING TRUE")
-                for(var i = 0; i <= results.count - 1; i++) {
-                    var heartBeatResult: HKSample? = results[i] as? HKSample
-                    self.healthKitStore.deleteObject(heartBeatResult!, withCompletion: { (success, error: NSError!) -> Void in
+                for(var i = 0; i <= results!.count - 1; i++) {
+                    var heartBeatResult: HKSample? = results![i] as? HKSample
+                    self.healthKitStore.deleteObject(heartBeatResult!, withCompletion: { (success, error: NSError?) -> Void in
                         
-                        println(heartBeatResult?.endDate)
+                        print(heartBeatResult?.endDate)
 
                         if(success == true){
                             //println("OBJECT DELETED")
                             
                             
                         } else {
-                            println("OBJECT DELETE ERROR")
+                            print("OBJECT DELETE ERROR")
                         }
                         
                         if(heartBeatResult?.startDate == startDate){

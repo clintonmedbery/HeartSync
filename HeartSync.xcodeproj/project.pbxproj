@@ -21,7 +21,7 @@
 		883D6AC31B79684400FB9469 /* HeartBeatDataOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883D6AC21B79684400FB9469 /* HeartBeatDataOperations.swift */; };
 		8852D2291B850B9D004CC006 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8852D2281B850B9D004CC006 /* HealthKit.framework */; };
 		88E74D7F1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E74D7E1B6BE4FD00BFBBA0 /* HeartBeatEntity.swift */; };
-		EC46B6C410735057E16FE730 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7A908E69E494EAE0B1AC97 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EC46B6C410735057E16FE730 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7A908E69E494EAE0B1AC97 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +212,7 @@
 		88237CC01B4B72C600BD5813 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Programadores Sans Frontieres";
