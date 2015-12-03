@@ -468,7 +468,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "FTPA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "21b1ba48-5f9f-4517-9712-22e53c713805";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/HeartSyncBridgingHeader.h";
 			};
 			name = Debug;
@@ -485,7 +485,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "FTPA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "21b1ba48-5f9f-4517-9712-22e53c713805";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/HeartSyncBridgingHeader.h";
 			};
 			name = Release;
